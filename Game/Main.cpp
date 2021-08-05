@@ -7,14 +7,21 @@ int main(int, char**)
 {
 	Engine::Engine engine;
 	engine.Startup();
-
 	engine.Get<Engine::Renderer>()->Create("WINDOW NAME", 800, 600);
 
-	std::cout << Engine::GetFilePath() << std::endl;
+	Engine::Scene scene;
+	scene.engine = &engine;
+
 	Engine::SetFilePath("../Resources");
-	std::cout << Engine::GetFilePath() << std::endl;
 
 	std::shared_ptr<Engine::Texture> texture = engine.Get<Engine::ResourceSystem>()->Get<Engine::Texture>("sf2.png", engine.Get<Engine::Renderer>());
+
+	for (size_t i = 0; i < 200; i++)
+	{
+		Engine::Transform transform{ { Engine::RandomRange(0, 800),  Engine::RandomRange(0, 600)}, Engine::RandomRange(0, 360), 1.0f };
+		std::unique_ptr<Engine::Actor> actor = std::make_unique<Engine::Actor>(transform, texture);
+		scene.AddActor(std::move(actor));
+	}
 
 	bool quit = false;
 	SDL_Event event;
@@ -28,20 +35,14 @@ int main(int, char**)
 			break;
 		}
 
+		engine.Update(0);
+		scene.Update(0);
+
 		engine.Get<Engine::Renderer>()->BeginFrame();
 
-		Engine::Vector2 position{ 300, 400 };
-		engine.Get<Engine::Renderer>()->Draw(texture, position);
+		scene.Draw(engine.Get<Engine::Renderer>());
 
 		engine.Get<Engine::Renderer>()->EndFrame();
-		
-		//for (size_t i = 0; i < 200; i++)
-		//{
-		//	SDL_Rect src{ 32,64,32,64 };
-		//	SDL_Rect dest{ Engine::RandomRangeInt(0, screen.x), Engine::RandomRangeInt(0, screen.y), 32, 48 };
-
-		//	SDL_RenderCopy(renderer, texture, &src, &dest);
-		//}
 	}
 
 	

@@ -48,10 +48,22 @@ namespace Engine
 		SDL_RenderPresent(renderer);
 	}
 
-	void Renderer::Draw(std::shared_ptr<Engine::Texture> texture, const Vector2 position)
+	void Renderer::Draw(std::shared_ptr<Engine::Texture> texture, const Vector2 position, float angle, const Vector2 scale)
 	{
-		SDL_Rect dest{ (int)position.x, (int)position.y, 64, 96 };
-		SDL_RenderCopy(renderer, texture->texture, nullptr, &dest);
+		Vector2 size = texture->GetSize();
+		size *= scale;
+		SDL_Rect dest{ (int)position.x, (int)position.y, (int)size.x, (int)size.y };
+
+		SDL_RenderCopyEx(renderer, texture->texture, nullptr, &dest, angle, nullptr, SDL_FLIP_NONE);
+	}
+
+	void Renderer::Draw(std::shared_ptr<Engine::Texture> texture, const Transform& transform)
+	{
+		Vector2 size = texture->GetSize();
+		size *= transform.scale;
+		SDL_Rect dest{ (int)transform.position.x, (int)transform.position.y, (int)size.x, (int)size.y };
+
+		SDL_RenderCopyEx(renderer, texture->texture, nullptr, &dest, transform.rotation, nullptr, SDL_FLIP_NONE);
 	}
 
 }
