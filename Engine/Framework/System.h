@@ -3,6 +3,8 @@
 
 namespace Engine
 {
+	class Renderer;
+
 	class System
 	{
 	public:
@@ -14,6 +16,6 @@ namespace Engine
 	class GraphicsSystem : public System
 	{
 	public:
-		virtual void Draw() = 0;
+		virtual void Draw(Renderer* renderer) = 0;
 	};
 }

@@ -6,7 +6,8 @@ namespace Engine
 {
 	void Actor::Update(float dt)
 	{
-		transform.rotation += 10;
+		transform.rotation += (180.0f * dt);
+		transform.position.x += (100 * dt);
 
 		transform.Update();
 		std::for_each(children.begin(), children.end(), [](auto& child) { child->transform.Update(child->parent->transform.matrix); });
@@ -19,7 +20,7 @@ namespace Engine
 
 	float Actor::GetRadius()
 	{
-		return std::max(texture->GetSize().x, texture->GetSize().y) * 0.5f;
+		return (texture) ? texture->GetSize().Length() * 0.5f : 0;
 	}
 
 	void Actor::AddChild(std::unique_ptr<Actor> child)

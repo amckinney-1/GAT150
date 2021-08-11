@@ -1,10 +1,11 @@
 #pragma once
 
-// systems
-//#include "Audio/AudioSystem.h"
+// audio
+#include "Audio/AudioSystem.h"
 
 // core
 #include "Core/FileSystem.h"
+#include "Core/Timer.h"
 
 // math
 #include "Math/Vector2.h"
@@ -16,6 +17,7 @@
 // graphics
 #include "Graphics/Renderer.h"
 #include "Graphics/Texture.h"
+#include "Graphics/ParticleSystem.h"
 
 // input
 #include "Input/InputSystem.h"
@@ -43,11 +45,14 @@ namespace Engine
 		void Startup();
 		void Shutdown();
 
-		void Update(float dt);
-		void Draw();
+		void Update();
+		void Draw(Renderer* renderer);
 
 		template<typename T>
 		T* Get();
+
+	public:
+		FrameTimer time;
 
 	private:
 		std::vector<std::unique_ptr<System>> systems;
