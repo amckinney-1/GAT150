@@ -2,10 +2,12 @@
 #include <SDL.h>
 #include <SDL_Image.h>
 #include <iostream>
+#include <cassert>
+
+#define MSG(message) std::cout << #message << std::endl;
 
 int main(int, char**)
 {
-
 	Engine::Engine engine;
 	engine.Startup();
 	engine.Get<Engine::Renderer>()->Create("WINDOW NAME", 800, 600);
@@ -31,6 +33,17 @@ int main(int, char**)
 	bool quit = false;
 	SDL_Event event;
 	float quitTime = engine.time.time + 3.0f;
+
+	// get font from resource system
+	int size = 16;
+	std::shared_ptr<Engine::Font> font = engine.Get<Engine::ResourceSystem>()->Get<Engine::Font>("fonts/ALGER.TTF", &size);
+
+	// create font texture
+	std::shared_ptr<Engine::Texture> textTexture = std::make_shared<Engine::Texture>(engine.Get<Engine::Renderer>());
+	// set font texture with font surface
+	textTexture->Create(font->CreateSurface("hello world", Engine::Color{ 1, 1, 1 }));
+	// add font texture to resource system
+	engine.Get<Engine::ResourceSystem>()->Add("textTexture", textTexture);
 
 	while (!quit)
 	{
@@ -62,6 +75,11 @@ int main(int, char**)
 		// draw
 		quit = (engine.Get<Engine::InputSystem>()->GetKeyState(SDL_SCANCODE_ESCAPE) == Engine::InputSystem::eKeyState::Pressed);
 		engine.Get<Engine::Renderer>()->BeginFrame();
+
+		Engine::Transform t;
+		t.position = { 30, 30 };
+		engine.Get<Engine::Renderer>()->Draw(textTexture, t);
+
 
 		scene.Draw(engine.Get<Engine::Renderer>());
 		engine.Draw(engine.Get<Engine::Renderer>());

@@ -7,7 +7,6 @@ namespace Engine
 	void Actor::Update(float dt)
 	{
 		transform.rotation += (180.0f * dt);
-		transform.position.x += (100 * dt);
 
 		transform.Update();
 		std::for_each(children.begin(), children.end(), [](auto& child) { child->transform.Update(child->parent->transform.matrix); });
