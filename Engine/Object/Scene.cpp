@@ -40,8 +40,7 @@ namespace Engine
 			}
 			else
 			{
-			iter++;
-
+				iter++;
 			}
 
 		}

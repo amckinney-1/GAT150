@@ -14,7 +14,8 @@ namespace Engine
 
 	void Actor::Draw(Renderer* renderer)
 	{
-		renderer->Draw(texture, transform);
+		if (texture) renderer->Draw(texture, transform);
+		std::for_each(children.begin(), children.end(), [renderer](auto& child) { child->Draw(renderer); });
 	}
 
 	float Actor::GetRadius()
