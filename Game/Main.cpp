@@ -25,6 +25,7 @@ int main(int, char**)
 			quit = true;
 			break;
 		}
+
 		game.Update();
 		game.Draw();
 	}

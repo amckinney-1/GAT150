@@ -1,7 +1,14 @@
 #include "Game.h"
+#include "Actors/Player.h"
+#include "Actors/Enemy.h"
 
 void Game::Initialize()
 {
+	int width = 800;
+	int height = 600;
+	screen.x = width;
+	screen.y = height;
+
 	// init engine/scene
 	engine = std::make_unique<Engine::Engine>();
 	engine->Startup();
@@ -10,9 +17,10 @@ void Game::Initialize()
 	scene->engine = engine.get();
 
 	// create window
-	engine->Get<Engine::Renderer>()->Create("WINDOW NAME", 800, 600);
+	engine->Get<Engine::Renderer>()->Create("WINDOW NAME", screen.x, screen.y);
 
 	// filepath
+	Engine::SeedRandom(static_cast<unsigned int>(time(nullptr)));
 	Engine::SetFilePath("../Resources");
 
 	// get font from resource system
@@ -28,15 +36,6 @@ void Game::Initialize()
 
 	engine->Get<Engine::AudioSystem>()->AddAudio("music", "audio/music.mp3");
 	musicChannel = engine->Get<Engine::AudioSystem>()->PlayAudio("music", 1, 1.5f, true);
-
-	std::shared_ptr<Engine::Texture> texture = engine->Get<Engine::ResourceSystem>()->Get<Engine::Texture>("sf2.png", engine->Get<Engine::Renderer>());
-
-	for (size_t i = 0; i < 10; i++)
-	{
-		Engine::Transform transform{ { Engine::RandomRange(0, 800),  Engine::RandomRange(0, 600)}, Engine::RandomRange(0, 360), 1.0f };
-		std::unique_ptr<Engine::Actor> actor = std::make_unique<Engine::Actor>(transform, texture);
-		scene->AddActor(std::move(actor));
-	}
 
 	// game stuff
 	engine->Get<Engine::AudioSystem>()->AddAudio("explosion", "explosion.wav");
@@ -58,6 +57,7 @@ void Game::Shutdown()
 
 void Game::Update()
 {
+	engine->Update();
 	stateTimer += engine->time.deltaTime;
 
 	switch (state)
@@ -81,7 +81,7 @@ void Game::Update()
 		state = eState::Game;
 		break;
 	case Game::eState::Game:
-		/*levelTimer += dt;
+		levelTimer += engine->time.deltaTime;
 		if (levelTimer >= 5)
 		{
 			levelTimer -= 5;
@@ -89,13 +89,13 @@ void Game::Update()
 
 			for (int i = 0; i <= spawnNumber; i++)
 			{
-				scene->AddActor(std::make_unique<Asteroid>(Engine::Transform{ Engine::Vector2{Engine::RandomRange(0.0f, 800.0f), 0.0f}, Engine::RandomRange(0, Engine::TwoPi), Engine::RandomRange(1, 7) }, engine->Get<Engine::ResourceSystem>()->Get<Engine::Shape>("Asteroid.txt"), 300.0f));
+				//scene->AddActor(std::make_unique<Asteroid>(Engine::Transform{ Engine::Vector2{Engine::RandomRange(0.0f, 800.0f), 0.0f}, Engine::RandomRange(0, Engine::TwoPi), Engine::RandomRange(1, 7) }, engine->Get<Engine::ResourceSystem>()->Get<Engine::Shape>("Asteroid.txt"), 300.0f));
 			}
 		}
 		if (lives > 0 && !scene->GetActor<Player>())
 		{
 			lives--;
-			scene->AddActor(std::make_unique<Player>(Engine::Transform{ Engine::Vector2{400, 300}, 0, 5 }, engine->Get<Engine::ResourceSystem>()->Get<Engine::Shape>("PlayerShape.txt"), 300.0f));
+			scene->AddActor(std::make_unique<Player>(Engine::Transform{ Engine::Vector2{screen.x / 2, screen.y / 2}, 0, 0.5f }, engine->Get<Engine::ResourceSystem>()->Get<Engine::Texture>("spaceShips_004.png", engine->Get<Engine::Renderer>()), 300.0f));
 		}
 		if (lives <= 0 && !scene->GetActor<Player>())
 		{
@@ -104,7 +104,7 @@ void Game::Update()
 		else if (scene->GetActors<Enemy>().size() == 0)
 		{
 			state = eState::StartLevel;
-		}*/
+		}
 		break;
 	case Game::eState::GameOver:
 		break;
@@ -112,13 +112,10 @@ void Game::Update()
 		break;
 	}
 
-	engine->Update();
-	scene->Update(engine->time.deltaTime);
+	if (engine->Get<Engine::InputSystem>()->GetKeyState(SDL_SCANCODE_ESCAPE) == Engine::InputSystem::eKeyState::Pressed) quit = true;
+
 
 	// update
-	engine->Update();
-	scene->Update(engine->time.deltaTime);
-
 	if (engine->Get<Engine::InputSystem>()->GetButtonState((int)Engine::InputSystem::eMouseButton::Left) == Engine::InputSystem::eKeyState::Held)
 	{
 		Engine::Vector2 position = engine->Get<Engine::InputSystem>()->GetMousePosition();
@@ -126,10 +123,12 @@ void Game::Update()
 		musicChannel.SetPitch(Engine::RandomRange(0.2f, 2.0f));
 	}
 
+	scene->Update(engine->time.deltaTime);
 }
 
 void Game::Draw()
 {
+	engine->Get<Engine::Renderer>()->BeginFrame();
 	switch (state)
 	{
 	case Game::eState::Title:
@@ -156,15 +155,14 @@ void Game::Draw()
 	graphics.DrawString(30, 20, std::to_string(score).c_str());
 	graphics.DrawString(400, 20, std::to_string(level).c_str());
 	graphics.DrawString(770, 20, std::to_string(lives).c_str());*/
+
 	scene->Draw(engine->Get<Engine::Renderer>());
 	engine->Draw(engine->Get<Engine::Renderer>());
 
 	// draw
-	quit = (engine->Get<Engine::InputSystem>()->GetKeyState(SDL_SCANCODE_ESCAPE) == Engine::InputSystem::eKeyState::Pressed);
-	engine->Get<Engine::Renderer>()->BeginFrame();
 
 	Engine::Transform t;
-	t.position = { 30, 30 };
+	t.position = { screen.x / 2, screen.y / 2 };
 	engine->Get<Engine::Renderer>()->Draw(textTexture, t);
 
 	engine->Get<Engine::Renderer>()->EndFrame();
@@ -172,28 +170,29 @@ void Game::Draw()
 
 void Game::UpdateLevelStart(float dt)
 {
-	/*if (!scene->GetActor<Player>())
+	if (!scene->GetActor<Player>())
 	{
-		scene->AddActor(std::make_unique<Player>(Engine::Transform{ Engine::Vector2{400, 300}, 0, 5 }, engine->Get<Engine::ResourceSystem>()->Get<Engine::Shape>("PlayerShape.txt"), 300.0f));
+		scene->AddActor(std::make_unique<Player>(Engine::Transform{ Engine::Vector2{screen.x / 2, screen.y / 2}, 0, 0.5f }, engine->Get<Engine::ResourceSystem>()->Get<Engine::Texture>("spaceShips_004.png", engine->Get<Engine::Renderer>()), 300.0f));
 	}
-
-	for (size_t i = 0; i < level * 2; i++)
+	/*
+	for (size_t i = 0; i < level + 2; i++)
 	{
 		float f = Engine::RandomRange(0, 10);
 		if (f <= 7.6)
 		{
-			scene->AddActor(std::make_unique<Enemy>(Engine::Transform{ Engine::Vector2{Engine::RandomRange(0.0f, 800),Engine::RandomRange(0.0f, 600)}, Engine::RandomRange(0, Engine::TwoPi), 2 }, engine->Get<Engine::ResourceSystem>()->Get<Engine::Shape>("EnemyShape.txt"), 150.0f));
+			scene->AddActor(std::make_unique<Enemy>(Engine::Transform{ Engine::Vector2{Engine::RandomRange(0.0f, screen.x),Engine::RandomRange(0.0f, screen.y)}, Engine::RandomRange(0, Engine::TwoPi), 0.5f }, engine->Get<Engine::ResourceSystem>()->Get<Engine::Texture>("spaceShips_003.png", engine->Get<Engine::Renderer>()), 150.0f));
 		}
 		else if (f <= 9)
 		{
-			scene->AddActor(std::make_unique<Enemy>(Engine::Transform{ Engine::Vector2{Engine::RandomRange(0.0f, 800),Engine::RandomRange(0.0f, 600)}, Engine::RandomRange(0, Engine::TwoPi), 5 }, engine->Get<Engine::ResourceSystem>()->Get<Engine::Shape>("EnemyShooter.txt"), 100.0f, true));
+			scene->AddActor(std::make_unique<Enemy>(Engine::Transform{ Engine::Vector2{Engine::RandomRange(0.0f, screen.x),Engine::RandomRange(0.0f, screen.y)}, Engine::RandomRange(0, Engine::TwoPi), 0.5f }, engine->Get<Engine::ResourceSystem>()->Get<Engine::Texture>("spaceShips_002.png", engine->Get<Engine::Renderer>()), 100.0f, true));
 		}
 		else
 		{
-			scene->AddActor(std::make_unique<Enemy>(Engine::Transform{ Engine::Vector2{Engine::RandomRange(0.0f, 800),Engine::RandomRange(0.0f, 600)}, Engine::RandomRange(0, Engine::TwoPi), 5 }, engine->Get<Engine::ResourceSystem>()->Get<Engine::Shape>("EnemyBurst.txt"), 50.0f, true, true));
+			scene->AddActor(std::make_unique<Enemy>(Engine::Transform{ Engine::Vector2{Engine::RandomRange(0.0f, screen.x),Engine::RandomRange(0.0f, screen.y)}, Engine::RandomRange(0, Engine::TwoPi), 0.5f }, engine->Get<Engine::ResourceSystem>()->Get<Engine::Texture>("spaceShips_001.png", engine->Get<Engine::Renderer>()), 50.0f, true, true));
 		}
 
-	}*/
+	}
+	*/
 }
 
 void Game::OnAddPoints(const Engine::Event& event)

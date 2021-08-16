@@ -22,9 +22,7 @@ namespace Engine
 			bool isActive{ false };
 
 			static bool isNotActive(Particle particle) { return particle.isActive == false; }
-
 		};
-
 
 	public:
 		void Startup() override;
@@ -34,7 +32,7 @@ namespace Engine
 		void Draw(Renderer* renderer) override;
 
 		void Create(const Vector2& position, size_t count, float lifetime, const std::shared_ptr<Texture> texture, float speed);
-		void Create(const Vector2& position, size_t count, float lifetime, const std::vector<Color>& colors, float speed, float angle, float angleRange);
+		void Create(const Vector2& position, size_t count, float lifetime, const std::shared_ptr<Texture> texture, float speed, float angle, float angleRange);
 	
 	private:
 		std::vector<Particle> particles;

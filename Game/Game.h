@@ -33,6 +33,8 @@ public:
 	std::unique_ptr<Engine::Scene> scene;
 
 private:
+	SDL_Rect screen{ 0, 0 };
+
 	bool quit{ false };
 	eState state{ eState::Title };
 	float stateTimer{ 0.0f };
