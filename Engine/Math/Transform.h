@@ -17,7 +17,7 @@ namespace Engine
 		Matrix33 matrix;
 
 		Transform() {}
-		Transform(const Vector2& position, float rotation = 0, float scale = 0) : position{position}, rotation{rotation}, scale{scale} {}
+		Transform(const Vector2& position, float rotation = 0, float scale = 1) : position{position}, rotation{rotation}, scale{scale} {}
 
 		void Update();
 		void Update(const Matrix33& mx);

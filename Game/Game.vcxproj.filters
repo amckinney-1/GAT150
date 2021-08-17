@@ -9,9 +9,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source\Actors">
-      <UniqueIdentifier>{6e214b6f-2df9-4dc0-8b7e-74b2a3da6b7f}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -20,34 +17,10 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Actors\Player.cpp">
-      <Filter>Source\Actors</Filter>
-    </ClCompile>
-    <ClCompile Include="Actors\Enemy.cpp">
-      <Filter>Source\Actors</Filter>
-    </ClCompile>
-    <ClCompile Include="Actors\Projectile.cpp">
-      <Filter>Source\Actors</Filter>
-    </ClCompile>
-    <ClCompile Include="Actors\Asteroid.cpp">
-      <Filter>Source\Actors</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
       <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Actors\Player.h">
-      <Filter>Source\Actors</Filter>
-    </ClInclude>
-    <ClInclude Include="Actors\Enemy.h">
-      <Filter>Source\Actors</Filter>
-    </ClInclude>
-    <ClInclude Include="Actors\Projectile.h">
-      <Filter>Source\Actors</Filter>
-    </ClInclude>
-    <ClInclude Include="Actors\Asteroid.h">
-      <Filter>Source\Actors</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

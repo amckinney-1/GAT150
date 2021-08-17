@@ -34,6 +34,8 @@
 // objects
 #include "Object/Actor.h"
 #include "Object/Scene.h"
+#include "Component/SpriteComponent.h"
+#include "Component/PhysicsComponent.h"
 
 #include <vector>
 #include <memory>
