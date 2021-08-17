@@ -34,7 +34,7 @@ namespace Engine
 		{
 			if (particle.isActive)
 			{
-				
+				//
 			}
 		}
 	}

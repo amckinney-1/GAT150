@@ -9,35 +9,47 @@ void Game::Initialize()
 	screen.x = width;
 	screen.y = height;
 
-	// init engine/scene
+	// init
 	engine = std::make_unique<Engine::Engine>();
 	engine->Startup();
 
 	scene = std::make_unique<Engine::Scene>();
 	scene->engine = engine.get();
 
-	// create window
 	engine->Get<Engine::Renderer>()->Create("WINDOW NAME", screen.x, screen.y);
 
 	// filepath
 	Engine::SeedRandom(static_cast<unsigned int>(time(nullptr)));
 	Engine::SetFilePath("../Resources");
 
-	// get font from resource system
-	int size = 16;
+	// Screen Text
+	int size = 24;
 	std::shared_ptr<Engine::Font> font = engine->Get<Engine::ResourceSystem>()->Get<Engine::Font>("fonts/ALGER.TTF", &size);
 
-	// create font texture
-	textTexture = std::make_shared<Engine::Texture>(engine->Get<Engine::Renderer>());
-	// set font texture with font surface
-	textTexture->Create(font->CreateSurface("hello world", Engine::Color{ 1, 1, 1 }));
-	// add font texture to resource system
-	engine->Get<Engine::ResourceSystem>()->Add("textTexture", textTexture);
+	std::shared_ptr<Engine::Texture> titleTexture = std::make_shared<Engine::Texture>(engine->Get<Engine::Renderer>());
+	titleTexture->Create(font->CreateSurface("Spacetroids", Engine::Color::white));
+	engine->Get<Engine::ResourceSystem>()->Add("titleTexture", titleTexture);
 
+	std::shared_ptr<Engine::Texture> gameoverTexture = std::make_shared<Engine::Texture>(engine->Get<Engine::Renderer>());
+	gameoverTexture->Create(font->CreateSurface("GAME  OVER", Engine::Color::white));
+	engine->Get<Engine::ResourceSystem>()->Add("gameoverTexture", gameoverTexture);
+
+	std::shared_ptr<Engine::Texture> scoreTexture = std::make_shared<Engine::Texture>(engine->Get<Engine::Renderer>());
+	scoreTexture->Create(font->CreateSurface("0000", Engine::Color::white));
+	engine->Get<Engine::ResourceSystem>()->Add("scoreTexture", scoreTexture);
+
+	std::shared_ptr<Engine::Texture> levelTexture = std::make_shared<Engine::Texture>(engine->Get<Engine::Renderer>());
+	scoreTexture->Create(font->CreateSurface("00", Engine::Color::white));
+	engine->Get<Engine::ResourceSystem>()->Add("levelTexture", levelTexture);
+
+	std::shared_ptr<Engine::Texture> lifeTexture = std::make_shared<Engine::Texture>(engine->Get<Engine::Renderer>());
+	scoreTexture->Create(font->CreateSurface("0", Engine::Color::white));
+	engine->Get<Engine::ResourceSystem>()->Add("lifeTexture", lifeTexture);
+
+	// Game Audio
 	engine->Get<Engine::AudioSystem>()->AddAudio("music", "audio/music.mp3");
-	musicChannel = engine->Get<Engine::AudioSystem>()->PlayAudio("music", 1, 1.5f, true);
+	musicChannel = engine->Get<Engine::AudioSystem>()->PlayAudio("music", 1, 1.05f, true);
 
-	// game stuff
 	engine->Get<Engine::AudioSystem>()->AddAudio("explosion", "explosion.wav");
 	engine->Get<Engine::AudioSystem>()->AddAudio("PlayerShoot", "PlayerShoot.wav");
 	engine->Get<Engine::AudioSystem>()->AddAudio("EnemyShoot", "EnemyShoot.wav");
@@ -65,7 +77,7 @@ void Game::Update()
 	case Game::eState::Title:
 		if (engine->Get<Engine::InputSystem>()->GetKeyState(SDL_SCANCODE_SPACE) == Engine::InputSystem::eKeyState::Pressed)
 		{
-			scene->engine->Get<Engine::AudioSystem>()->PlayAudio("music");
+			//scene->engine->Get<Engine::AudioSystem>()->PlayAudio("music");
 			state = eState::StartGame;
 		}
 		break;
@@ -116,10 +128,11 @@ void Game::Update()
 
 
 	// update
-	if (engine->Get<Engine::InputSystem>()->GetButtonState((int)Engine::InputSystem::eMouseButton::Left) == Engine::InputSystem::eKeyState::Held)
+	if (engine->Get<Engine::InputSystem>()->GetButtonState((int)Engine::InputSystem::eMouseButton::Left) == Engine::InputSystem::eKeyState::Pressed)
 	{
 		Engine::Vector2 position = engine->Get<Engine::InputSystem>()->GetMousePosition();
 		// create particles
+		engine->Get<Engine::ParticleSystem>()->Create(position, 20, 1, engine->Get<Engine::ResourceSystem>()->Get<Engine::Texture>("particle01.png", engine->Get<Engine::Renderer>()), 100);
 		musicChannel.SetPitch(Engine::RandomRange(0.2f, 2.0f));
 	}
 
@@ -132,38 +145,54 @@ void Game::Draw()
 	switch (state)
 	{
 	case Game::eState::Title:
-		/*graphics.SetColor(Engine::Color::purple);
+	{
+		Engine::Transform t;
+		t.position = { screen.x / 2, screen.y / 2 };
+		engine->Get<Engine::Renderer>()->Draw(engine->Get<Engine::ResourceSystem>()->Get<Engine::Texture>("titleTexture"), t);
+	}
 
-		graphics.DrawString(320, 300 + static_cast<int>(std::sin(stateTimer * 10) * 20), "[Insert Game Title Here]");
-		graphics.DrawString(320, 400, "Press Space to Start");*/
-		break;
+	break;
 	case Game::eState::StartGame:
-		
+
 		break;
 	case Game::eState::StartLevel:
 		break;
 	case Game::eState::Game:
 		break;
 	case Game::eState::GameOver:
-		/*graphics.SetColor(Engine::Color::red);
-		graphics.DrawString(320, 400, "GAME OVER");*/
-		break;
+	{
+		Engine::Transform t;
+		t.position = { screen.x / 2, screen.y / 2 };
+		engine->Get<Engine::Renderer>()->Draw(engine->Get<Engine::ResourceSystem>()->Get<Engine::Texture>("gameoverTexture"), t);
+	}
+	break;
 	default:
 		break;
 	}
-	/*graphics.SetColor(Engine::Color::white);
-	graphics.DrawString(30, 20, std::to_string(score).c_str());
-	graphics.DrawString(400, 20, std::to_string(level).c_str());
-	graphics.DrawString(770, 20, std::to_string(lives).c_str());*/
+
+	// score text
+	std::shared_ptr<Engine::Font> font = engine->Get<Engine::ResourceSystem>()->Get<Engine::Font>("fonts/ALGER.TTF");
+
+	Engine::Transform t;
+	t.position = { 50, 20 };
+	std::shared_ptr<Engine::Texture> scoreTexture = engine->Get<Engine::ResourceSystem>()->Get<Engine::Texture>("scoreTexture");
+	scoreTexture->Create(font->CreateSurface(std::to_string(score), Engine::Color::white));
+	engine->Get<Engine::Renderer>()->Draw(scoreTexture, t);
+
+	t.position.x = screen.x / 2;
+	t.position.y = 20.0f;
+	std::shared_ptr<Engine::Texture> levelTexture = engine->Get<Engine::ResourceSystem>()->Get<Engine::Texture>("levelTexture");
+	levelTexture->Create(font->CreateSurface(std::to_string(level), Engine::Color::white));
+	engine->Get<Engine::Renderer>()->Draw(levelTexture, t);
+
+	t.position.x = screen.x - 50.0f;
+	t.position.y = 20.0f;
+	std::shared_ptr<Engine::Texture> lifeTexture = engine->Get<Engine::ResourceSystem>()->Get<Engine::Texture>("lifeTexture");
+	lifeTexture->Create(font->CreateSurface(std::to_string(lives), Engine::Color::white));
+	engine->Get<Engine::Renderer>()->Draw(lifeTexture, t);
 
 	scene->Draw(engine->Get<Engine::Renderer>());
 	engine->Draw(engine->Get<Engine::Renderer>());
-
-	// draw
-
-	Engine::Transform t;
-	t.position = { screen.x / 2, screen.y / 2 };
-	engine->Get<Engine::Renderer>()->Draw(textTexture, t);
 
 	engine->Get<Engine::Renderer>()->EndFrame();
 }
@@ -174,25 +203,37 @@ void Game::UpdateLevelStart(float dt)
 	{
 		scene->AddActor(std::make_unique<Player>(Engine::Transform{ Engine::Vector2{screen.x / 2, screen.y / 2}, 0, 0.5f }, engine->Get<Engine::ResourceSystem>()->Get<Engine::Texture>("spaceShips_004.png", engine->Get<Engine::Renderer>()), 300.0f));
 	}
-	/*
+	
 	for (size_t i = 0; i < level + 2; i++)
 	{
-		float f = Engine::RandomRange(0, 10);
-		if (f <= 7.6)
+		Engine::Vector2 position;
+		if (Engine::RandomRangeInt(0, 2) == 0)
 		{
-			scene->AddActor(std::make_unique<Enemy>(Engine::Transform{ Engine::Vector2{Engine::RandomRange(0.0f, screen.x),Engine::RandomRange(0.0f, screen.y)}, Engine::RandomRange(0, Engine::TwoPi), 0.5f }, engine->Get<Engine::ResourceSystem>()->Get<Engine::Texture>("spaceShips_003.png", engine->Get<Engine::Renderer>()), 150.0f));
-		}
-		else if (f <= 9)
-		{
-			scene->AddActor(std::make_unique<Enemy>(Engine::Transform{ Engine::Vector2{Engine::RandomRange(0.0f, screen.x),Engine::RandomRange(0.0f, screen.y)}, Engine::RandomRange(0, Engine::TwoPi), 0.5f }, engine->Get<Engine::ResourceSystem>()->Get<Engine::Texture>("spaceShips_002.png", engine->Get<Engine::Renderer>()), 100.0f, true));
+			position.x = (Engine::RandomRangeInt(0, 2) == 0) ? 0.0f : screen.x;
+			position.y = Engine::RandomRange(0, screen.y);
 		}
 		else
 		{
-			scene->AddActor(std::make_unique<Enemy>(Engine::Transform{ Engine::Vector2{Engine::RandomRange(0.0f, screen.x),Engine::RandomRange(0.0f, screen.y)}, Engine::RandomRange(0, Engine::TwoPi), 0.5f }, engine->Get<Engine::ResourceSystem>()->Get<Engine::Texture>("spaceShips_001.png", engine->Get<Engine::Renderer>()), 50.0f, true, true));
+			position.x = Engine::RandomRange(0, screen.x);
+			position.y = (Engine::RandomRangeInt(0, 2) == 0) ? 0.0f : screen.y;
+		}
+
+		float f = Engine::RandomRange(0, 10);
+		if (f <= 7.6)
+		{
+			scene->AddActor(std::make_unique<Enemy>(Engine::Transform{ position, Engine::RandomRange(0, Engine::TwoPi), 0.5f }, engine->Get<Engine::ResourceSystem>()->Get<Engine::Texture>("spaceShips_003.png", engine->Get<Engine::Renderer>()), 150.0f));
+		}
+		else if (f <= 9)
+		{
+			scene->AddActor(std::make_unique<Enemy>(Engine::Transform{ position, Engine::RandomRange(0, Engine::TwoPi), 0.5f }, engine->Get<Engine::ResourceSystem>()->Get<Engine::Texture>("spaceShips_002.png", engine->Get<Engine::Renderer>()), 100.0f, true));
+		}
+		else
+		{
+			scene->AddActor(std::make_unique<Enemy>(Engine::Transform{ position, Engine::RandomRange(0, Engine::TwoPi), 0.5f }, engine->Get<Engine::ResourceSystem>()->Get<Engine::Texture>("spaceShips_001.png", engine->Get<Engine::Renderer>()), 50.0f, true, true));
 		}
 
 	}
-	*/
+	
 }
 
 void Game::OnAddPoints(const Engine::Event& event)

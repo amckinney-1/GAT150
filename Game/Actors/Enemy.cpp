@@ -63,17 +63,17 @@ void Enemy::Update(float dt)
 
 void Enemy::OnCollision(Actor* actor)
 {
-	//if (/*dynamic_cast<Player*>(actor) || */(dynamic_cast<Projectile*>(actor) && actor->tag == "Player"))
-	//{
-	//	actor->destroy = true;
+	if (/*dynamic_cast<Player*>(actor) || */(dynamic_cast<Projectile*>(actor) && actor->tag == "Player"))
+	{
+		actor->destroy = true;
 
-	//	destroy = true;
-	//	scene->engine->Get<Engine::ParticleSystem>()->Create(transform.position, 200, 1, Engine::Color::white, 100);
-	//	scene->engine->Get<Engine::AudioSystem>()->PlayAudio("EnemyExplosion");
+		destroy = true;
+		scene->engine->Get<Engine::ParticleSystem>()->Create(transform.position, 200, 1, scene->engine->Get<Engine::ResourceSystem>()->Get<Engine::Texture>("particle01.png", scene->engine->Get<Engine::Renderer>()), 100);
+		scene->engine->Get<Engine::AudioSystem>()->PlayAudio("EnemyExplosion");
 
-	//	Engine::Event event;
-	//	event.name = "AddPoints";
-	//	event.data = 300;
-	//	scene->engine->Get<Engine::EventSystem>()->Notify(event);
-	//}
+		Engine::Event event;
+		event.name = "AddPoints";
+		event.data = 300;
+		scene->engine->Get<Engine::EventSystem>()->Notify(event);
+	}
 }

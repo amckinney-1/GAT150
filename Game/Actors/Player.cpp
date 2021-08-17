@@ -2,13 +2,13 @@
 #include "Math/MathUtils.h"
 #include "Projectile.h"
 #include "Enemy.h"
-//#include "Asteroid.h"
+#include "Asteroid.h"
 #include "Engine.h"
 #include <SDL.h>
 
 void Player::Initialize()
 {
-	
+	/*
 	std::unique_ptr locator = std::make_unique<Actor>();
 	locator->transform.localPosition = Engine::Vector2{ 2, 3 };
 	AddChild(std::move(locator));
@@ -21,7 +21,7 @@ void Player::Initialize()
 	engine->transform.localPosition = Engine::Vector2{ -2, 0 };
 	//engine->transform.localRotation = Engine::DegToRad(180);
 	AddChild(std::move(engine));
-	
+	*/
 }
 
 void Player::Update(float dt)
@@ -56,7 +56,12 @@ void Player::Update(float dt)
 	if (fireTimer <= 0 && scene->engine->Get<Engine::InputSystem>()->GetKeyState(SDL_SCANCODE_SPACE) == Engine::InputSystem::eKeyState::Pressed)
 	{
 		fireTimer = fireRate;
-		
+		std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform, scene->engine->Get<Engine::ResourceSystem>()->Get<Engine::Texture>("spaceMissiles_012.png", scene->engine->Get<Engine::Renderer>()), 600);
+		projectile->tag = "Player";
+		scene->AddActor(std::move(projectile));
+		scene->engine->Get<Engine::AudioSystem>()->PlayAudio("PlayerShoot");
+
+		/*
 		{
 
 			Engine::Transform t = children[0]->transform;
@@ -75,6 +80,7 @@ void Player::Update(float dt)
 			scene->AddActor(std::move(projectile));
 			scene->engine->Get<Engine::AudioSystem>()->PlayAudio("PlayerShoot");
 		}
+		*/
 	}
 
 	//std::vector<Engine::Color> colors = { Engine::Color::purple, Engine::Color::cyan, Engine::Color::blue };
@@ -85,15 +91,15 @@ void Player::OnCollision(Actor* actor)
 {
 	return;
 
-	//if (dynamic_cast<Enemy*>(actor) || dynamic_cast<Asteroid*>(actor) || (dynamic_cast<Projectile*>(actor) && actor->tag != "Player"))
-	//{
-	//	destroy = true;
-	//	scene->engine->Get<Engine::ParticleSystem>()->Create(transform.position, 200, 1, Engine::Color::white, 100);
-	//	scene->engine->Get<Engine::AudioSystem>()->PlayAudio("PlayerExplosion");
+	if (dynamic_cast<Enemy*>(actor) || dynamic_cast<Asteroid*>(actor) || (dynamic_cast<Projectile*>(actor) && actor->tag != "Player"))
+	{
+		destroy = true;
+		scene->engine->Get<Engine::ParticleSystem>()->Create(transform.position, 200, 1, scene->engine->Get<Engine::ResourceSystem>()->Get<Engine::Texture>("particle01.png", scene->engine->Get<Engine::Renderer>()), 100);
+		scene->engine->Get<Engine::AudioSystem>()->PlayAudio("PlayerExplosion");
 
-	//	Engine::Event event;
-	//	event.name = "PlayerDead";
-	//	event.data = std::string("yes i'm dead!");
-	//	scene->engine->Get<Engine::EventSystem>()->Notify(event);
-	//}
+		Engine::Event event;
+		event.name = "PlayerDead";
+		event.data = std::string("yes i'm dead!");
+		scene->engine->Get<Engine::EventSystem>()->Notify(event);
+	}
 }
