@@ -2,10 +2,8 @@
 
 void Game::Initialize()
 {
-	int width = 800;
-	int height = 600;
-	screen.x = width;
-	screen.y = height;
+	screen.x = 800;
+	screen.y = 600;
 
 	// init
 	engine = std::make_unique<Engine::Engine>();
@@ -20,16 +18,18 @@ void Game::Initialize()
 	Engine::SeedRandom(static_cast<unsigned int>(time(nullptr)));
 	Engine::SetFilePath("../Resources");
 
-	std::unique_ptr<Engine::Actor> actor = std::make_unique<Engine::Actor>(Engine::Transform{ Engine::Vector2{screen.x / 2, screen.y / 2} });
+	std::unique_ptr<Engine::Actor> actor = std::make_unique<Engine::Actor>(Engine::Transform{ Engine::Vector2{screen.x / 2, screen.y / 2}, 0 , 2 });
 	{
-		std::unique_ptr<Engine::SpriteComponent> component = std::make_unique<Engine::SpriteComponent>();
-		component->texture = engine->Get<Engine::ResourceSystem>()->Get<Engine::Texture>("sf2.png", engine->Get<Engine::Renderer>());
-		actor->AddComponent(std::move(component));
+		Engine::SpriteAnimationComponent* component = actor->AddComponent<Engine::SpriteAnimationComponent>();
+		component->texture = engine->Get<Engine::ResourceSystem>()->Get<Engine::Texture>("Sprites/character.png", engine->Get<Engine::Renderer>());
+		component->fps = 30;
+		component->numFramesX = 12;
+		component->numFramesY = 8;
 	}
 	{
-		std::unique_ptr<Engine::PhysicsComponent> component = std::make_unique<Engine::PhysicsComponent>();
-		component->ApplyForce(Engine::Vector2::right * 200);
-		actor->AddComponent(std::move(component));
+		//Engine::PhysicsComponent* component = actor->AddComponent<Engine::PhysicsComponent>();
+		//component->ApplyForce(Engine::Vector2::right * 200);
+		
 	}
 	scene->AddActor(std::move(actor));
 

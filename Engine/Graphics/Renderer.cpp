@@ -74,4 +74,15 @@ namespace Engine
 		SDL_RenderCopyEx(renderer, texture->texture, nullptr, &dest, Engine::RadToDeg(transform.rotation), nullptr, SDL_FLIP_NONE);
 	}
 
+	void Renderer::Draw(std::shared_ptr<Engine::Texture> texture, SDL_Rect source, const Transform& transform)
+	{
+		Vector2 size = Vector2{ source.w, source.h };
+		size *= transform.scale;
+		Vector2 newPosition = transform.position - (size * 0.5f);
+
+		SDL_Rect dest{ (int)newPosition.x, (int)transform.position.y, (int)size.x, (int)size.y };
+
+		SDL_RenderCopyEx(renderer, texture->texture, &source, &dest, Engine::RadToDeg(transform.rotation), nullptr, SDL_FLIP_NONE);
+	}
+
 }
