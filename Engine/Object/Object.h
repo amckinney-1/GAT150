@@ -4,6 +4,7 @@ namespace Engine
 {
 	class Object
 	{
-		// Empty
+	public:
+		virtual ~Object() {}
 	};
 }

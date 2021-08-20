@@ -20,11 +20,14 @@ void Game::Initialize()
 
 	std::unique_ptr<Engine::Actor> actor = std::make_unique<Engine::Actor>(Engine::Transform{ Engine::Vector2{screen.x / 2, screen.y / 2}, 0 , 2 });
 	{
-		Engine::SpriteAnimationComponent* component = actor->AddComponent<Engine::SpriteAnimationComponent>();
+		auto component = Engine::ObjectFactory::Instance().Create<Engine::SpriteAnimationComponent>("SpriteAnimationComponent");
+
 		component->texture = engine->Get<Engine::ResourceSystem>()->Get<Engine::Texture>("Sprites/character.png", engine->Get<Engine::Renderer>());
 		component->fps = 30;
 		component->numFramesX = 12;
 		component->numFramesY = 8;
+		
+		actor->AddComponent(std::move(component));
 	}
 	{
 		//Engine::PhysicsComponent* component = actor->AddComponent<Engine::PhysicsComponent>();

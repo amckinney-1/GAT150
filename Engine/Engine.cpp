@@ -12,6 +12,9 @@ namespace Engine
 		systems.push_back(std::make_unique<AudioSystem>());
 
 		std::for_each(systems.begin(), systems.end(), [](auto& system) { system->Startup(); });
+
+		ObjectFactory::Instance().Register<SpriteAnimationComponent>("SpriteAnimationComponent");
+
 	}
 
 	void Engine::Shutdown()
