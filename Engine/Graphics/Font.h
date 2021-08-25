@@ -12,7 +12,7 @@ namespace Engine
 		~Font();
 
 		bool Load(const std::string& name, void* data) override;
-		SDL_Surface* CreateSurface(const std::string& text, const Engine::Color& color);
+		SDL_Surface* CreateSurface(const std::string& text, const Color& color);
 
 	private:
 		TTF_Font* font{ nullptr };

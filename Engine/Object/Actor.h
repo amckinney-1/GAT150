@@ -2,6 +2,8 @@
 #include "Object.h"
 #include "Math/Transform.h"
 #include "Component/Component.h"
+#include "Core/Serializable.h"
+
 #include <vector>
 #include <memory>
 
@@ -10,7 +12,7 @@ namespace Engine
 	class Scene;
 	class Renderer;
 
-	class Actor : public Object
+	class Actor : public Object, public ISerializable
 	{
 	public:
 		Actor() {}
@@ -29,6 +31,11 @@ namespace Engine
 		void AddComponent(std::unique_ptr<Component> component);
 		template<class T>
 		T* AddComponent();
+
+		// Inherited via ISerializable
+		virtual bool Write(const rapidjson::Value& value) const override;
+
+		virtual bool Read(const rapidjson::Value& value) override;
 
 	public:
 		bool destroy{ false };

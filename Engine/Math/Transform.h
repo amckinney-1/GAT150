@@ -1,11 +1,12 @@
 #pragma once
 #include "Vector2.h"
 #include "Matrix33.h"
-#include "Matrix22.h"
+#include "Core\Serializable.h"
 
 namespace Engine
 {
-	struct Transform {
+	struct Transform : public ISerializable
+	{
 		Vector2 position;
 		float rotation{ 0 };
 		float scale{ 1 };
@@ -21,5 +22,9 @@ namespace Engine
 
 		void Update();
 		void Update(const Matrix33& mx);
+
+		// Inherited via ISerializable
+		virtual bool Write(const rapidjson::Value& value) const override;
+		virtual bool Read(const rapidjson::Value& value) override;
 	};
 }
