@@ -4,6 +4,7 @@
 #include <string>
 
 #define JSON_READ(value, data) Engine::json::Get(value, #data, data);
+
 namespace Engine
 {
 

@@ -18,8 +18,11 @@ namespace Engine
 	public:
 		int frame{ 0 };
 		int fps{ 0 };
+
 		int numFramesX{ 0 };
 		int numFramesY{ 0 };
+		int startFrame{ 0 };
+		int endFrame{ 0 };
 
 		float frameTimer{ 0 };
 		float frameTime{ 0 };

@@ -46,6 +46,8 @@ namespace Engine
 	bool Actor::Read(const rapidjson::Value& value)
 	{
 		JSON_READ(value, tag);
+		JSON_READ(value, name);
+
 		if (value.HasMember("transform"))
 		{
 			transform.Read(value["transform"]);
@@ -66,9 +68,6 @@ namespace Engine
 				}
 			}
 		}
-
-
-		return true;
 
 		return true;
 	}

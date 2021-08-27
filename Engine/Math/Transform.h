@@ -23,7 +23,6 @@ namespace Engine
 		void Update();
 		void Update(const Matrix33& mx);
 
-		// Inherited via ISerializable
 		virtual bool Write(const rapidjson::Value& value) const override;
 		virtual bool Read(const rapidjson::Value& value) override;
 	};

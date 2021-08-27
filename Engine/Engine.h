@@ -1,6 +1,6 @@
 #pragma once
 
-#define REGISTER_CLASS(class) ObjectFactory::Instance().Register<class>(#class)
+#define REGISTER_CLASS(class) Engine::ObjectFactory::Instance().Register<class>(#class)
 
 // audio
 #include "Audio/AudioSystem.h"
@@ -30,6 +30,9 @@
 #include "Graphics/Font.h"
 #include "Graphics/ParticleSystem.h"
 
+// physics
+#include "Physics/PhysicsSystem.h"
+
 // input
 #include "Input/InputSystem.h"
 
@@ -41,6 +44,7 @@
 #include "Object/Scene.h"
 #include "Component/SpriteAnimationComponent.h"
 #include "Component/PhysicsComponent.h"
+#include "Component/RBPhysicsComponent.h"
 
 #include <vector>
 #include <memory>

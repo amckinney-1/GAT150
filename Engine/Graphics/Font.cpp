@@ -21,7 +21,7 @@ namespace Engine
 		return true;
 	}
 
-	SDL_Surface* Font::CreateSurface(const std::string& text, const Engine::Color& color)
+	SDL_Surface* Font::CreateSurface(const std::string& text, const Color& color)
 	{
 		SDL_Surface* surface = TTF_RenderText_Solid(font, text.c_str(), color);
 		if (surface == nullptr)

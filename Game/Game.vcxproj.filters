@@ -9,6 +9,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source\GameComponent">
+      <UniqueIdentifier>{3c0255f3-32be-4a23-b77f-9654dee7f101}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -17,10 +20,22 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="GameComponent\PlayerComponent.cpp">
+      <Filter>Source\GameComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="GameComponent\EnemyComponent.cpp">
+      <Filter>Source\GameComponent</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
       <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="GameComponent\PlayerComponent.h">
+      <Filter>Source\GameComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="GameComponent\EnemyComponent.h">
+      <Filter>Source\GameComponent</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

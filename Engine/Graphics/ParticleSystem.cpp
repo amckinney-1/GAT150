@@ -70,7 +70,7 @@ namespace Engine
 				particle->prevPosition = position;
 				particle->texture = texture;
 
-				particle->velocity = Engine::Vector2::Rotate(Engine::Vector2::right, angle + Engine::RandomRange(-angleRange, angleRange)) * (speed * Engine::Random());
+				particle->velocity = Vector2::Rotate(Vector2::right, angle + RandomRange(-angleRange, angleRange)) * (speed * Random());
 			}
 		}
 	}

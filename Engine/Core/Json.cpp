@@ -1,6 +1,7 @@
 #include "Json.h"
 #include "Math/Vector2.h"
 #include "Math/Color.h"
+#include "istreamwrapper.h"
 #include <fstream>
 
 namespace Engine

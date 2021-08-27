@@ -29,16 +29,19 @@ namespace Engine
 		float GetRadius();
 
 		void AddComponent(std::unique_ptr<Component> component);
+
 		template<class T>
 		T* AddComponent();
 
-		// Inherited via ISerializable
-		virtual bool Write(const rapidjson::Value& value) const override;
+		template<class T>
+		T* GetComponent();
 
+		virtual bool Write(const rapidjson::Value& value) const override;
 		virtual bool Read(const rapidjson::Value& value) override;
 
 	public:
 		bool destroy{ false };
+		std::string name;
 		std::string tag;
 
 		Transform transform;
@@ -59,5 +62,16 @@ namespace Engine
 		components.push_back(std::move(component));
 
 		return dynamic_cast<T*>(components.back().get());
+	}
+
+	template<class T>
+	inline T* Actor::GetComponent()
+	{
+		for (auto& component : components)
+		{
+			if (dynamic_cast<T*>(component.get())) { return dynamic_cast<T*>(component.get()); }
+		}
+
+		return nullptr;
 	}
 }
