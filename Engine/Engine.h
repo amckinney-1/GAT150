@@ -45,6 +45,8 @@
 #include "Component/SpriteAnimationComponent.h"
 #include "Component/PhysicsComponent.h"
 #include "Component/RBPhysicsComponent.h"
+#include "Component/AudioComponent.h"
+#include "Component/TextComponent.h"
 
 #include <vector>
 #include <memory>

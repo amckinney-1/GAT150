@@ -8,6 +8,7 @@ int main(int, char**)
 	Game game;
 	game.Initialize();
 
+	/*
 	rapidjson::Document document;
 	bool success = Engine::json::Load("json.txt", document);
 	assert(success);
@@ -39,6 +40,7 @@ int main(int, char**)
 	Engine::Color color;
 	Engine::json::Get(document, "color", color);
 	std::cout << color << std::endl;
+	*/
 
 	// create engine
 	Engine::Engine engine;
