@@ -18,18 +18,36 @@ namespace Engine
 	{
 		std::for_each(components.begin(), components.end(), [renderer](auto& component) 
 			{
-				if (dynamic_cast<GraphicsComponent*>(component.get()))
-				{
-					dynamic_cast<GraphicsComponent*>(component.get())->Draw(renderer);
-				}
+				if (dynamic_cast<GraphicsComponent*>(component.get())) dynamic_cast<GraphicsComponent*>(component.get())->Draw(renderer);
 			});
 
 		std::for_each(children.begin(), children.end(), [renderer](auto& child) { child->Draw(renderer); });
 	}
 
-	float Actor::GetRadius()
+	void Actor::BeginContact(Actor* other)
 	{
-		return 0;
+		Event event;
+
+		event.name = "collision_enter";
+		event.data = other;
+		event.receiver = this;
+
+		scene->engine->Get<EventSystem>()->Notify(event);
+
+		//std::cout << "begin: " << other->tag << std::endl;
+	}
+
+	void Actor::EndContact(Actor* other)
+	{
+		Event event;
+
+		event.name = "collision_exit";
+		event.data = other;
+		event.receiver = this;
+
+		scene->engine->Get<EventSystem>()->Notify(event);
+
+		//std::cout << "end: " << other->tag << std::endl;
 	}
 
 	void Actor::AddComponent(std::unique_ptr<Component> component)
@@ -48,13 +66,11 @@ namespace Engine
 		JSON_READ(value, tag);
 		JSON_READ(value, name);
 
-		if (value.HasMember("transform"))
-		{
-			transform.Read(value["transform"]);
-		}
+		if (value.HasMember("transform")) transform.Read(value["transform"]);
+
 		if (value.HasMember("components") && value["components"].IsArray())
 		{
-			for (auto& componentValue : value["actors"].GetArray())
+			for (auto& componentValue : value["components"].GetArray())
 			{
 				std::string type;
 				JSON_READ(componentValue, type);
@@ -64,6 +80,7 @@ namespace Engine
 				{
 					component->owner = this;
 					component->Read(componentValue);
+					component->Create();
 					AddComponent(std::move(component));
 				}
 			}

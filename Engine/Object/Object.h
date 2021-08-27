@@ -6,5 +6,7 @@ namespace Engine
 	{
 	public:
 		virtual ~Object() {}
+
+		virtual void Create() {}
 	};
 }

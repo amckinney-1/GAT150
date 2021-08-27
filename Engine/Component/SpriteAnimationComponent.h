@@ -1,18 +1,27 @@
 #pragma once
 #include "Component/SpriteComponent.h"
 #include <SDL.h>
+#include <map>
 
 namespace Engine
 {
 	class SpriteAnimationComponent : public SpriteComponent
 	{
+	private:
+		struct Sequence
+		{
+			int fps{ 0 };
+			int startFrame{ 0 };
+			int endFrame{ 0 };
+		};
+
 	public:
 		void Update() override;
 		void Draw(Renderer* renderer) override;
 
-		// Inherited via SpriteComponent
-		virtual bool Write(const rapidjson::Value& value) const override;
+		void StartSequence(const std::string& name);
 
+		virtual bool Write(const rapidjson::Value& value) const override;
 		virtual bool Read(const rapidjson::Value& value) override;
 
 	public:
@@ -28,5 +37,8 @@ namespace Engine
 		float frameTime{ 0 };
 
 		SDL_Rect rect;
+
+		std::map<std::string, Sequence> sequences;
+		std::string sequenceName;
 	};
 }

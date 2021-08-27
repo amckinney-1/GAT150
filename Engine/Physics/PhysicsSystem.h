@@ -1,6 +1,6 @@
 #pragma once
-
 #include "Framework/System.h"
+#include "ContactListener.h"
 #include "Math/Vector2.h"
 #include "box2d/box2d.h"
 
@@ -37,5 +37,6 @@ namespace Engine
 		static const float pixelsPerUnit;
 
 		std::unique_ptr<b2World> world;
+		std::unique_ptr<ContactListener> contactListener;
 	};
 }

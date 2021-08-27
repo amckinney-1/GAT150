@@ -1,9 +1,6 @@
 #pragma once
-#include "Object.h"
 #include "Math/Transform.h"
 #include "Component/Component.h"
-#include "Core/Serializable.h"
-
 #include <vector>
 #include <memory>
 
@@ -23,10 +20,10 @@ namespace Engine
 		virtual void Update(float dt);
 		virtual void Draw(Renderer* renderer);
 
-		virtual void OnCollision(Actor* actor) {}
-		void AddChild(std::unique_ptr<Actor> actor);
+		void BeginContact(Actor* other);
+		void EndContact(Actor* other);
 
-		float GetRadius();
+		void AddChild(std::unique_ptr<Actor> actor);
 
 		void AddComponent(std::unique_ptr<Component> component);
 
