@@ -1,4 +1,5 @@
 #include "AudioComponent.h"
+#include "Engine.h"
 
 namespace Engine
 {

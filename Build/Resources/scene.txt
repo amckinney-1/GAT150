@@ -5,8 +5,14 @@
          "name":"Player",
          "tag":"Player",
          "transform":{
-            "position":[400,300],
-            "scale":[2,2],
+            "position":[
+               400,
+               300
+            ],
+            "scale":[
+               2,
+               2
+            ],
             "rotation":0
          },
          "components":[
@@ -16,31 +22,31 @@
             },
             {
                "type":"SpriteAnimationComponent",
-               "textureName":"characters.png",
+               "textureName":"sprites/characters.png",
                "fps":10,
                "numFramesX":18,
                "numFramesY":11,
                "startFrame":90,
-               "endFrame":95
+               "endFrame":95,
                "sequences":[
-                   {
-                      "name":"idle",
-                      "sequence.fps":2,
-                      "sequence.startFrame":0,
-                      "sequence.endFrame":1
-                   },
-                   {
-                      "name":"walk_right",
-                      "sequence.fps":10,
-                      "sequence.startFrame":90,
-                      "sequence.endFrame":95
-                   },
-                   {
-                      "name":"walk_left",
-                      "sequence.fps":10,
-                      "sequence.startFrame":162,
-                      "sequence.endFrame":167
-                   }
+                  {
+                     "name":"idle",
+                     "sequence.fps":2,
+                     "sequence.startFrame":0,
+                     "sequence.endFrame":1
+                  },
+                  {
+                     "name":"walk_right",
+                     "sequence.fps":10,
+                     "sequence.startFrame":90,
+                     "sequence.endFrame":95
+                  },
+                  {
+                     "name":"walk_left",
+                     "sequence.fps":10,
+                     "sequence.startFrame":162,
+                     "sequence.endFrame":167
+                  }
                ],
                "defaultSequence":"idle"
             },
@@ -51,7 +57,10 @@
                "data.lockAngle":true,
                "data.restitution":0.1,
                "data.gravityScale":1,
-               "data.size":[32,32]
+               "data.size":[
+                  32,
+                  32
+               ]
             },
             {
                "type":"AudioComponent",
@@ -64,7 +73,10 @@
          "type":"Actor",
          "tag":"Enemy",
          "transform":{
-            "position":[500,200],
+            "position":[
+               500,
+               200
+            ],
             "rotation":0
          },
          "components":[
@@ -74,7 +86,7 @@
             },
             {
                "type":"SpriteAnimationComponent",
-               "textureName":"bat.png",
+               "textureName":"sprites/bat.png",
                "fps":10,
                "numFramesX":4,
                "numFramesY":1
@@ -87,7 +99,10 @@
                "data.lockAngle":true,
                "data.restitution":0.1,
                "data.gravityScale":0,
-               "data.size":[32,32]
+               "data.size":[
+                  32,
+                  32
+               ]
             }
          ]
       },
@@ -95,18 +110,24 @@
          "type":"Actor",
          "tag":"Ground",
          "transform":{
-            "position":[400,550]
+            "position":[
+               400,
+               550
+            ]
          },
          "components":[
             {
                "type":"SpriteComponent",
-               "textureName":"ground.png"
+               "textureName":"sprites/ground.png"
             },
             {
                "type":"RBPhysicsComponent",
                "data.isDynamic":false,
                "data.density":1,
-               "data.size":[800,20]
+               "data.size":[
+                  800,
+                  20
+               ]
             }
          ]
       },
@@ -114,14 +135,21 @@
          "type":"Actor",
          "name":"Score",
          "transform":{
-            "position":[60,20]
+            "position":[
+               60,
+               20
+            ]
          },
          "components":[
             {
                "type":"TextComponent",
                "fontName":"fonts/ALGER.TTF",
                "fontSize":16,
-               "color":[1,1,1],
+               "color":[
+                  1,
+                  1,
+                  1
+               ],
                "text":"Hello World!"
             }
          ]

@@ -1,11 +1,9 @@
 #include "Json.h"
-#include "Math/Vector2.h"
-#include "Math/Color.h"
-#include "istreamwrapper.h"
 #include <fstream>
+#include "istreamwrapper.h"
 
-namespace Engine
-{
+//namespace Engine
+//{
 	bool json::Load(const std::string& filename, rapidjson::Document& document)
 	{
 		bool success = false;
@@ -13,7 +11,7 @@ namespace Engine
 		std::ifstream stream(filename);
 		if (stream.is_open())
 		{
-			rapidjson::GenericStreamWrapper istream(stream);
+			rapidjson::IStreamWrapper istream(stream);
 			document.ParseStream(istream);
 			success = document.IsObject();
 		}
@@ -77,7 +75,7 @@ namespace Engine
 		return true;
 	}
 
-	bool json::Get(const rapidjson::Value& value, const std::string& name, Vector2& data)
+	bool json::Get(const rapidjson::Value& value, const std::string& name, Engine::Vector2& data)
 	{
 		// check if 'name' member exists and is an array with 2 elements
 		if (value.HasMember(name.c_str()) == false || value[name.c_str()].IsArray() == false || value[name.c_str()].Size() != 2)
@@ -98,7 +96,7 @@ namespace Engine
 
 	}
 
-	bool json::Get(const rapidjson::Value& value, const std::string& name, Color& data)
+	bool json::Get(const rapidjson::Value& value, const std::string& name, Engine::Color& data)
 	{
 		// check if 'name' member exists and is an array with 2 elements
 		if (value.HasMember(name.c_str()) == false || value[name.c_str()].IsArray() == false || value[name.c_str()].Size() != 3)
@@ -118,4 +116,4 @@ namespace Engine
 		return true;
 
 	}
-}
+//}

@@ -1,4 +1,5 @@
 #include "TextComponent.h"
+#include "Engine.h"
 
 namespace Engine
 {

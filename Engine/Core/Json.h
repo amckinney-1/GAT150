@@ -1,13 +1,13 @@
 #pragma once
+#include "Math/Vector2.h"
+#include "Math/Color.h"
 #include "document.h"
-#include "Engine.h"
 #include <string>
 
-#define JSON_READ(value, data) Engine::json::Get(value, #data, data);
+#define JSON_READ(value, data) json::Get(value, #data, data);
 
-namespace Engine
-{
-
+//namespace Engine
+//{
 	namespace json
 	{
 		bool Load(const std::string& filename, rapidjson::Document& document);
@@ -16,8 +16,7 @@ namespace Engine
 		bool Get(const rapidjson::Value& value, const std::string& name, float& data);
 		bool Get(const rapidjson::Value& value, const std::string& name, bool& data);
 		bool Get(const rapidjson::Value& value, const std::string& name, std::string& data);
-		bool Get(const rapidjson::Value& value, const std::string& name, Vector2& data);
-		bool Get(const rapidjson::Value& value, const std::string& name, Color& data);
-
+		bool Get(const rapidjson::Value& value, const std::string& name, Engine::Vector2& data);
+		bool Get(const rapidjson::Value& value, const std::string& name, Engine::Color& data);
 	}
-}
+//

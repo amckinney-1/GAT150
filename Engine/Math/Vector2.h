@@ -13,7 +13,7 @@ namespace Engine
 		Vector2(float x) : x{ x }, y{ x } {}
 		Vector2(float x, float y) : x{ x }, y{ y } {}
 		Vector2(int x, int y) : x{ static_cast<float>(x) }, y{ static_cast<float>(y) } {}
-		//Vector2(const b2Vec2& v2) : x { v2.x }, y { v2.y } {}
+		Vector2(const b2Vec2& v2) : x { v2.x }, y { v2.y } {}
 
 		float  operator [] (size_t index) const { return (&x)[index]; }
 		float& operator [] (size_t index) { return (&x)[index]; }

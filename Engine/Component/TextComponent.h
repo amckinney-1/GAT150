@@ -1,5 +1,6 @@
 #pragma once
 #include "GraphicsComponent.h"
+#include "Graphics/Font.h"
 
 namespace Engine
 {

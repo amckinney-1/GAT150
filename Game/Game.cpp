@@ -13,8 +13,8 @@ void Game::Initialize()
 	engine->Get<Engine::Renderer>()->Create("WINDOW NAME", screen.x, screen.y);
 
 	// register classes
-	REGISTER_CLASS(PlayerComponent);
-	REGISTER_CLASS(EnemyComponent);
+	Engine::REGISTER_CLASS(PlayerComponent);
+	Engine::REGISTER_CLASS(EnemyComponent);
 
 
 	scene = std::make_unique<Engine::Scene>();
@@ -26,7 +26,7 @@ void Game::Initialize()
 	Engine::SetFilePath("../Resources");
 
 	rapidjson::Document document;
-	bool success = Engine::json::Load("scene.txt", document);
+	bool success = json::Load("scene.txt", document);
 	assert(success);
 	scene->Read(document);
 

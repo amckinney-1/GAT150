@@ -20,12 +20,14 @@ void EnemyComponent::Update()
 
 bool EnemyComponent::Write(const rapidjson::Value& value) const
 {
-	JSON_READ(value, speed);
+	
 
 	return false;
 }
 
 bool EnemyComponent::Read(const rapidjson::Value& value)
 {
+	JSON_READ(value, speed);
+
 	return false;
 }
