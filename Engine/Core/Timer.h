@@ -1,7 +1,7 @@
 #pragma once
 #include <chrono>
 
-namespace Engine
+namespace nEngine
 {
 	class Timer
 	{

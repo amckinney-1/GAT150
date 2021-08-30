@@ -1,7 +1,7 @@
 #pragma once
 #include "Vector2.h"
 
-namespace Engine
+namespace nEngine
 {
 	struct Matrix33
 	{

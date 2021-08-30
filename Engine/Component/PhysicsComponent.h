@@ -2,7 +2,7 @@
 #include "Component.h"
 #include "Math/Vector2.h"
 
-namespace Engine
+namespace nEngine
 {
 	class PhysicsComponent : public Component
 	{

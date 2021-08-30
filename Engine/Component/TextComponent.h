@@ -2,7 +2,7 @@
 #include "GraphicsComponent.h"
 #include "Graphics/Font.h"
 
-namespace Engine
+namespace nEngine
 {
 	class TextComponent : public GraphicsComponent
 	{

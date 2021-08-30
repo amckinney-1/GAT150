@@ -2,9 +2,9 @@
 #include "Engine.h"
 #include <algorithm>
 
-namespace Engine
+namespace nEngine
 {
-	using namespace Engine;
+	using namespace nEngine;
 	void Scene::Update(float dt)
 	{
 		// add new actors

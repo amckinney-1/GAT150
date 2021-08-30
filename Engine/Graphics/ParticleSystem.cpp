@@ -2,7 +2,7 @@
 #include "Math/Random.h"
 #include "Renderer.h"
 
-namespace Engine
+namespace nEngine
 {
 	void ParticleSystem::Startup() 
 	{

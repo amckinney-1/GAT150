@@ -1,7 +1,7 @@
 #include "Font.h"
 #include <cassert>
 
-namespace Engine
+namespace nEngine
 {
 	Font::~Font()
 	{

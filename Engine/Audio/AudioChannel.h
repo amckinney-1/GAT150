@@ -1,7 +1,7 @@
 #pragma once
 #include <fmod.hpp>
 
-namespace Engine
+namespace nEngine
 {
 	class AudioChannel
 	{

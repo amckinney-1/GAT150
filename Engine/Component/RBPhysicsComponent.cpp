@@ -1,7 +1,7 @@
 #include "RBPhysicsComponent.h"
 #include "Engine.h"
 
-namespace Engine
+namespace nEngine
 {
 	void RBPhysicsComponent::Update()
 	{

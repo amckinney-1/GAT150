@@ -2,7 +2,7 @@
 #include "Matrix33.h"
 #include "Core\Serializable.h"
 
-namespace Engine
+namespace nEngine
 {
 	struct Transform : public ISerializable
 	{

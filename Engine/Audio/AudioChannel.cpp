@@ -1,6 +1,6 @@
 #include "AudioChannel.h"
 
-namespace Engine
+namespace nEngine
 {
 	bool AudioChannel::IsPlaying()
 	{

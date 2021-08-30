@@ -4,7 +4,7 @@
 #include <SDL_ttf.h>
 #include <iostream>
 
-namespace Engine
+namespace nEngine
 {
 	void Renderer::Startup()
 	{

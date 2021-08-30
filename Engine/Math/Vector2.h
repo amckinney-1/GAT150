@@ -3,7 +3,7 @@
 #include <cmath>
 #include <iostream>
 
-namespace Engine
+namespace nEngine
 {
 	struct Vector2
 	{

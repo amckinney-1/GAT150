@@ -2,7 +2,7 @@
 #include "PhysicsComponent.h"
 #include "Physics/PhysicsSystem.h"
 
-namespace Engine
+namespace nEngine
 {
 	class RBPhysicsComponent : public PhysicsComponent
 	{

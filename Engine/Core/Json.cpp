@@ -2,8 +2,8 @@
 #include <fstream>
 #include "istreamwrapper.h"
 
-//namespace Engine
-//{
+namespace nEngine
+{
 	bool json::Load(const std::string& filename, rapidjson::Document& document)
 	{
 		bool success = false;
@@ -75,7 +75,7 @@
 		return true;
 	}
 
-	bool json::Get(const rapidjson::Value& value, const std::string& name, Engine::Vector2& data)
+	bool json::Get(const rapidjson::Value& value, const std::string& name, nEngine::Vector2& data)
 	{
 		// check if 'name' member exists and is an array with 2 elements
 		if (value.HasMember(name.c_str()) == false || value[name.c_str()].IsArray() == false || value[name.c_str()].Size() != 2)
@@ -96,7 +96,7 @@
 
 	}
 
-	bool json::Get(const rapidjson::Value& value, const std::string& name, Engine::Color& data)
+	bool json::Get(const rapidjson::Value& value, const std::string& name, nEngine::Color& data)
 	{
 		// check if 'name' member exists and is an array with 2 elements
 		if (value.HasMember(name.c_str()) == false || value[name.c_str()].IsArray() == false || value[name.c_str()].Size() != 3)
@@ -116,4 +116,4 @@
 		return true;
 
 	}
-//}
+}

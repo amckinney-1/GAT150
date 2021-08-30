@@ -2,7 +2,7 @@
 #include <random>
 #include <limits>
 
-namespace Engine
+namespace nEngine
 {
 	std::default_random_engine g_engine;
 

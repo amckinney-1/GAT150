@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Engine
+namespace nEngine
 {
 	void SeedRandom(unsigned int seed);
 

@@ -5,7 +5,7 @@
 #include <vector>
 #include <array>
 
-namespace Engine
+namespace nEngine
 {
 	class InputSystem : public System
 	{

@@ -6,7 +6,7 @@
 #include <memory>
 #include <algorithm>
 
-namespace Engine
+namespace nEngine
 {
 	class ResourceSystem : public System
 	{

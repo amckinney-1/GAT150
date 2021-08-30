@@ -16,8 +16,8 @@ public:
 private:
 	
 public:
-	std::unique_ptr<Engine::Engine> engine;
-	std::unique_ptr<Engine::Scene> scene;
+	std::unique_ptr<nEngine::Engine> engine;
+	std::unique_ptr<nEngine::Scene> scene;
 
 private:
 	bool quit{ false };

@@ -4,7 +4,7 @@
 #include "Engine.h"
 #include <algorithm>
 
-namespace Engine
+namespace nEngine
 {
 	void Actor::Update(float dt)
 	{

@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 
-namespace Engine
+namespace nEngine
 {
 	template<class T>
 	class Singleton

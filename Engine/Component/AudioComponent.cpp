@@ -1,7 +1,7 @@
 #include "AudioComponent.h"
 #include "Engine.h"
 
-namespace Engine
+namespace nEngine
 {
 	void AudioComponent::Update()
 	{

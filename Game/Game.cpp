@@ -8,25 +8,25 @@ void Game::Initialize()
 	screen.y = 600;
 
 	// init
-	engine = std::make_unique<Engine::Engine>();
+	engine = std::make_unique<nEngine::Engine>();
 	engine->Startup();
-	engine->Get<Engine::Renderer>()->Create("WINDOW NAME", screen.x, screen.y);
+	engine->Get<nEngine::Renderer>()->Create("WINDOW NAME", screen.x, screen.y);
 
 	// register classes
-	Engine::REGISTER_CLASS(PlayerComponent);
-	Engine::REGISTER_CLASS(EnemyComponent);
+	REGISTER_CLASS(PlayerComponent);
+	REGISTER_CLASS(EnemyComponent);
 
 
-	scene = std::make_unique<Engine::Scene>();
+	scene = std::make_unique<nEngine::Scene>();
 	scene->engine = engine.get();
 
 
 	// filepath
-	Engine::SeedRandom(static_cast<unsigned int>(time(nullptr)));
-	Engine::SetFilePath("../Resources");
+	nEngine::SeedRandom(static_cast<unsigned int>(time(nullptr)));
+	nEngine::SetFilePath("../Resources");
 
 	rapidjson::Document document;
-	bool success = json::Load("scene.txt", document);
+	bool success = nEngine::json::Load("scene.txt", document);
 	assert(success);
 	scene->Read(document);
 
@@ -61,16 +61,16 @@ void Game::Shutdown()
 void Game::Update()
 {
 	engine->Update();
-	if (engine->Get<Engine::InputSystem>()->GetKeyState(SDL_SCANCODE_ESCAPE) == Engine::InputSystem::eKeyState::Pressed) quit = true;
+	if (engine->Get<nEngine::InputSystem>()->GetKeyState(SDL_SCANCODE_ESCAPE) == nEngine::InputSystem::eKeyState::Pressed) quit = true;
 	scene->Update(engine->time.deltaTime);
 }
 
 void Game::Draw()
 {
-	engine->Get<Engine::Renderer>()->BeginFrame();
+	engine->Get<nEngine::Renderer>()->BeginFrame();
 	
-	scene->Draw(engine->Get<Engine::Renderer>());
-	engine->Draw(engine->Get<Engine::Renderer>());
+	scene->Draw(engine->Get<nEngine::Renderer>());
+	engine->Draw(engine->Get<nEngine::Renderer>());
 
-	engine->Get<Engine::Renderer>()->EndFrame();
+	engine->Get<nEngine::Renderer>()->EndFrame();
 }

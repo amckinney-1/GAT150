@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-namespace Engine
+namespace nEngine
 {
 	void SetFilePath(const std::string& pathname);
 	std::string GetFilePath();

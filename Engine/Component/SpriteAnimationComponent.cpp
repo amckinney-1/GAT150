@@ -3,7 +3,7 @@
 #include "Graphics/Texture.h"
 #include "Engine.h"
 
-namespace Engine
+namespace nEngine
 {
 	void SpriteAnimationComponent::Update()
 	{

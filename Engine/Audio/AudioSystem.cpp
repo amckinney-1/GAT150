@@ -1,7 +1,7 @@
 #include "AudioSystem.h"
 #include <Core/Utilities.h>
 
-namespace Engine
+namespace nEngine
 {
 	void AudioSystem::Startup()
 	{

@@ -3,7 +3,7 @@
 #include "Math/Vector2.h"
 #include <SDL.h>
 
-namespace Engine
+namespace nEngine
 {
 	class Renderer;
 

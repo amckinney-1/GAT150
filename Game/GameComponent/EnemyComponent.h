@@ -1,7 +1,7 @@
 #pragma once
 #include "Component/Component.h"
 
-class EnemyComponent : public Engine::Component
+class EnemyComponent : public nEngine::Component
 {
 public:
 	virtual void Update() override;

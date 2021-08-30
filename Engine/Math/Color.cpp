@@ -1,7 +1,7 @@
 #include "Color.h"
 #include <string>
 
-namespace Engine
+namespace nEngine
 {
 	const Color Color::white{ 1, 1, 1 };
 	const Color Color::red{ 1, 0, 0 };

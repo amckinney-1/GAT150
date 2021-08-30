@@ -2,7 +2,7 @@
 #include <iostream>
 #include <SDL.h>
 
-namespace Engine
+namespace nEngine
 {
 	struct Color
 	{

@@ -1,7 +1,7 @@
 #include "TextComponent.h"
 #include "Engine.h"
 
-namespace Engine
+namespace nEngine
 {
 	void TextComponent::Update()
 	{

@@ -1,7 +1,7 @@
 #include "ContactListener.h"
 #include "Object/Actor.h"
 
-namespace Engine
+namespace nEngine
 {
 	void ContactListener::BeginContact(b2Contact* contact)
 	{

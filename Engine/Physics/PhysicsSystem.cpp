@@ -2,9 +2,9 @@
 #include "Object/Actor.h"
 #include "Math/MathUtils.h"
 
-const float Engine::PhysicsSystem::pixelsPerUnit = 48.0f;
+const float nEngine::PhysicsSystem::pixelsPerUnit = 48.0f;
 
-namespace Engine
+namespace nEngine
 {
     void PhysicsSystem::Startup()
     {

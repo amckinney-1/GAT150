@@ -5,7 +5,7 @@
 #include <string>
 #include <map>
 
-namespace Engine
+namespace nEngine
 {
 	class AudioChannel;
 

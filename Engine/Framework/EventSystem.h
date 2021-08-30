@@ -6,7 +6,7 @@
 #include <list>
 #include <variant>
 
-namespace Engine
+namespace nEngine
 {
 	class Object;
 

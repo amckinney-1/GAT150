@@ -1,7 +1,7 @@
 #pragma once
 #include "Json.h"
 
-namespace Engine
+namespace nEngine
 {
 	class ISerializable
 	{

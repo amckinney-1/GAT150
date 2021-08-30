@@ -4,7 +4,7 @@
 #include "Math/Vector2.h"
 #include "box2d/box2d.h"
 
-namespace Engine
+namespace nEngine
 {
 	class PhysicsSystem : public System
 	{

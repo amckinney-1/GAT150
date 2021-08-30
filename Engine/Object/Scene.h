@@ -6,7 +6,7 @@
 #include <memory>
 #include <vector>
 
-namespace Engine
+namespace nEngine
 {
 	class Actor;
 	class Engine;

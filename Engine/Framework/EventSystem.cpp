@@ -1,6 +1,6 @@
 #include "EventSystem.h"
 
-namespace Engine
+namespace nEngine
 {
 	void EventSystem::Startup()
 	{

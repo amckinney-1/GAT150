@@ -4,7 +4,7 @@
 #include <vector>
 #include <memory>
 
-namespace Engine
+namespace nEngine
 {
 	class Scene;
 	class Renderer;

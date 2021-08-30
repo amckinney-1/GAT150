@@ -3,7 +3,7 @@
 #include "Engine.h"
 #include "Object/Actor.h"
 
-namespace Engine
+namespace nEngine
 {
 	void SpriteComponent::Update()
 	{

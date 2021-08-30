@@ -1,7 +1,7 @@
 #include "InputSystem.h"
 #include <algorithm>
 
-namespace Engine
+namespace nEngine
 {
 	void InputSystem::Startup()
 	{
@@ -25,7 +25,7 @@ namespace Engine
 		prevMouseButtonState = mouseButtonState;
 		int x, y;
 		Uint32 buttons = SDL_GetMouseState(&x, &y);
-		mousePosition = Engine::Vector2{ x, y };
+		mousePosition = nEngine::Vector2{ x, y };
 		mouseButtonState[0] = buttons & SDL_BUTTON_LMASK; // button [0001] & [0RML]
 		mouseButtonState[1] = buttons & SDL_BUTTON_MMASK; // button [0010] & [0RML]
 		mouseButtonState[2] = buttons & SDL_BUTTON_RMASK; // button [0100] & [0RML]

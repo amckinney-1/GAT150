@@ -1,7 +1,7 @@
 #pragma once
 
 
-namespace Engine
+namespace nEngine
 {
 	class Renderer;
 

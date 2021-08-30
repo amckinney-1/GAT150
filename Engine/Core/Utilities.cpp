@@ -1,7 +1,7 @@
 #include "Utilities.h"
 #include <algorithm>
 
-namespace Engine
+namespace nEngine
 {
 	std::string string_tolower(const std::string& str)
 	{

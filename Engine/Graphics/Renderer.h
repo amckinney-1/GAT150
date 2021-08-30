@@ -5,7 +5,7 @@
 #include <SDL.h>
 #include <string>
 
-namespace Engine
+namespace nEngine
 {
 	class Renderer : public System
 	{

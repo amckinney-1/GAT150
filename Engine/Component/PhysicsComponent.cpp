@@ -1,7 +1,7 @@
 #include "PhysicsComponent.h"
 #include "Engine.h"
 
-namespace Engine
+namespace nEngine
 {
 	void PhysicsComponent::Update()
 	{

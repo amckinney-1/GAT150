@@ -1,7 +1,7 @@
 #include "FileSystem.h"
 #include <filesystem>
 
-namespace Engine
+namespace nEngine
 {
 	void SetFilePath(const std::string& pathname)
 	{

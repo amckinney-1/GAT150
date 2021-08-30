@@ -1,7 +1,7 @@
 #include "Vector2.h"
 #include <string>
 
-namespace Engine
+namespace nEngine
 {
 	const Vector2 Vector2::up{ 0, -1 };
 	const Vector2 Vector2::down{ 0, 1 };

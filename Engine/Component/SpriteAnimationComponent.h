@@ -3,7 +3,7 @@
 #include <SDL.h>
 #include <map>
 
-namespace Engine
+namespace nEngine
 {
 	class SpriteAnimationComponent : public SpriteComponent
 	{

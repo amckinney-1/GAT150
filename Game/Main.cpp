@@ -43,11 +43,11 @@ int main(int, char**)
 	*/
 
 	// create engine
-	Engine::Engine engine;
+	nEngine::Engine engine;
 	engine.Startup();
 
 	// create scene
-	Engine::Scene scene;
+	nEngine::Scene scene;
 	scene.engine = &engine;
 
 	bool quit = false;

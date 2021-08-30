@@ -4,7 +4,7 @@
 #include "Math/Color.h"
 #include <SDL_ttf.h>
 
-namespace Engine
+namespace nEngine
 {
 	class Font : public Resource
 	{

@@ -2,7 +2,7 @@
 #include "Object/Object.h"
 #include "Core/Serializable.h"
 
-namespace Engine
+namespace nEngine
 {
 	class Actor;
 

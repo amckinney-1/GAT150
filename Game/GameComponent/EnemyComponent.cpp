@@ -1,7 +1,7 @@
 #include "EnemyComponent.h"
 #include "Engine.h"
 
-using namespace Engine;
+using namespace nEngine;
 
 void EnemyComponent::Update()
 {

@@ -4,7 +4,7 @@
 #include "Math/Color.h"
 #include <vector>
 
-namespace Engine
+namespace nEngine
 {
 	class Renderer;
 	class Texture;

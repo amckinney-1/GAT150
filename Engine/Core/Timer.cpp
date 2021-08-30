@@ -1,6 +1,6 @@
 #include "Timer.h"
 
-namespace Engine
+namespace nEngine
 {
 	Timer::clock_tick_type Timer::ElapsedTicks()
 	{

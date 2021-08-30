@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cassert>
 
-namespace Engine
+namespace nEngine
 {
 	Texture::Texture(Renderer* renderer)
 	{

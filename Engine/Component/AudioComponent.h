@@ -2,7 +2,7 @@
 #include "Component.h"
 #include "Audio/AudioChannel.h"
 
-namespace Engine
+namespace nEngine
 {
 	class AudioComponent : public Component
 	{

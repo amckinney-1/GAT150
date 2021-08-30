@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Engine
+namespace nEngine
 {
 	const float TwoPi = 6.28318530718f;     // 360 degrees
 	const float Pi = 3.14159265359f;        // 180 degrees

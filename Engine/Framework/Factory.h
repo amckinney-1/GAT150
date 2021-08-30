@@ -2,7 +2,7 @@
 #include <memory>
 #include <map>
 
-namespace Engine
+namespace nEngine
 {
 	template <class TBase>
 	class CreatorBase

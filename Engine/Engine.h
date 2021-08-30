@@ -1,6 +1,6 @@
 #pragma once
 
-#define REGISTER_CLASS(class) ObjectFactory::Instance().Register<class>(#class)
+#define REGISTER_CLASS(class) nEngine::ObjectFactory::Instance().Register<class>(#class)
 
 
 // core
@@ -56,7 +56,7 @@
 #include <memory>
 #include <algorithm>
 
-namespace Engine
+namespace nEngine
 {
 	using ObjectFactory = Singleton<Factory<std::string, Object>>;
 

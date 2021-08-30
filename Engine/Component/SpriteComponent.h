@@ -2,7 +2,7 @@
 #include "GraphicsComponent.h"
 #include <memory>
 
-namespace Engine
+namespace nEngine
 {
 	class Texture;
 
