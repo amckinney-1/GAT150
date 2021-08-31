@@ -153,6 +153,37 @@
                "text":"Hello World!"
             }
          ]
+      },
+      {
+         "type":"Actor",
+         "prototype":true,
+         "name":"Coin",
+         "tag":"Pickup",
+         "transform":{
+            "position":[
+               200,
+               500
+            ]
+         },
+         "components":[
+            {
+               "type":"SpriteAnimationComponent",
+               "textureName":"sprites/coin.png",
+               "fps":15,
+               "numFramesX":8,
+               "numFramesY":1
+            },
+            {
+               "type":"RBPhysicsComponent",
+               "data.isDynamic":false,
+               "data.isSensor":true,
+               "data.density":1,
+               "data.size":[
+                  32,
+                  32
+               ]
+            }
+         ]
       }
    ]
 }

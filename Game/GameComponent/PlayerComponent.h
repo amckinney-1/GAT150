@@ -5,6 +5,9 @@
 class PlayerComponent : public nEngine::Component
 {
 public:
+	std::unique_ptr<Object> Clone() const { return std::make_unique<PlayerComponent>(*this); }
+	virtual ~PlayerComponent();
+
 	void Create() override;
 	virtual void Update() override;
 

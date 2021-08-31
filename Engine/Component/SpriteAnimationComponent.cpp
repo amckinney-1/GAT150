@@ -22,8 +22,8 @@ namespace nEngine
 		Vector2 frameCount{ numFramesX, numFramesY };
 		Vector2 frameSize = size / frameCount;
 
-		rect.x = static_cast<int>((frame % numFramesX) * frameSize.x);
-		rect.y = static_cast<int>((frame / numFramesY) * frameSize.y);
+		rect.x = static_cast<int>((frame % numFramesY) * frameSize.x);
+		rect.y = static_cast<int>((frame / numFramesX) * frameSize.y);
 		rect.w = static_cast<int>(frameSize.x);
 		rect.h = static_cast<int>(frameSize.y);
 	}
@@ -53,6 +53,7 @@ namespace nEngine
 	{
 		return false;
 	}
+
 	bool SpriteAnimationComponent::Read(const rapidjson::Value& value)
 	{
 		SpriteComponent::Read(value);

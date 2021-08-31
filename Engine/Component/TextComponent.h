@@ -7,6 +7,8 @@ namespace nEngine
 	class TextComponent : public GraphicsComponent
 	{
 	public:
+		std::unique_ptr<Object> Clone() const { return std::make_unique<TextComponent>(*this); }
+
 		virtual void Update() override;
 		virtual void Draw(Renderer* renderer) override;
 

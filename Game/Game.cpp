@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "GameComponent/PlayerComponent.h"
 #include "GameComponent/EnemyComponent.h"
+#include "GameComponent/PickupComponent.h"
 
 void Game::Initialize()
 {
@@ -15,6 +16,7 @@ void Game::Initialize()
 	// register classes
 	REGISTER_CLASS(PlayerComponent);
 	REGISTER_CLASS(EnemyComponent);
+	REGISTER_CLASS(PickupComponent);
 
 
 	scene = std::make_unique<nEngine::Scene>();
@@ -30,26 +32,12 @@ void Game::Initialize()
 	assert(success);
 	scene->Read(document);
 
-
-
-	//std::unique_ptr<Engine::Actor> actor = std::make_unique<Engine::Actor>(Engine::Transform{ Engine::Vector2{screen.x / 2, screen.y / 2}, 0 , 2 });
-	//{
-	//	auto component = Engine::ObjectFactory::Instance().Create<Engine::SpriteAnimationComponent>("SpriteAnimationComponent");
-
-	//	component->texture = engine->Get<Engine::ResourceSystem>()->Get<Engine::Texture>("Sprites/character.png", engine->Get<Engine::Renderer>());
-	//	component->fps = 30;
-	//	component->numFramesX = 12;
-	//	component->numFramesY = 8;
-	//	
-	//	actor->AddComponent(std::move(component));
-	//}
-	////{
-	//	//Engine::PhysicsComponent* component = actor->AddComponent<Engine::PhysicsComponent>();
-	//	//component->ApplyForce(Engine::Vector2::right * 200);
-
-	////}
-	//scene->AddActor(std::move(actor));
-
+	for (int i = 0; i < 100; i++)
+	{
+		auto actor = nEngine::ObjectFactory::Instance().Create<nEngine::Actor>("Coin");
+		actor->transform.position = nEngine::Vector2{ nEngine::RandomRange(0, 800), nEngine::RandomRange(300, 450) };
+		scene->AddActor(std::move(actor));
+	}
 }
 
 void Game::Shutdown()

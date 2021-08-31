@@ -12,10 +12,14 @@ namespace nEngine
 	class Actor : public Object, public ISerializable
 	{
 	public:
+
 		Actor() {}
 		Actor(const Transform& transform) : transform{ transform } {};
+		Actor(const Actor& other);
 
 		virtual void Initialize() {}
+
+		std::unique_ptr<Object> Clone() const { return std::make_unique<Actor>(*this); }
 
 		virtual void Update(float dt);
 		virtual void Draw(Renderer* renderer);
