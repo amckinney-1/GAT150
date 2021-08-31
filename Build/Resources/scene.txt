@@ -10,8 +10,8 @@
                300
             ],
             "scale":[
-               2,
-               2
+               12,
+               12
             ],
             "rotation":0
          },
@@ -38,13 +38,13 @@
                   {
                      "name":"walk_right",
                      "sequence.fps":10,
-                     "sequence.startFrame":90,
+                     "sequence.startFrame":93,
                      "sequence.endFrame":95
                   },
                   {
                      "name":"walk_left",
                      "sequence.fps":10,
-                     "sequence.startFrame":162,
+                     "sequence.startFrame":165,
                      "sequence.endFrame":167
                   }
                ],
@@ -59,7 +59,7 @@
                "data.gravityScale":1,
                "data.size":[
                   32,
-                  32
+                  64
                ]
             },
             {
@@ -89,7 +89,9 @@
                "textureName":"sprites/bat.png",
                "fps":10,
                "numFramesX":4,
-               "numFramesY":1
+               "numFramesY":1,
+                "startFrame":1,
+               "endFrame":3
             },
             {
                "type":"RBPhysicsComponent",
@@ -127,6 +129,62 @@
                "data.size":[
                   800,
                   20
+               ]
+            }
+         ]
+      },
+      {
+         "type":"Actor",
+         "name":"tile01",
+         "tag":"Ground",
+         "prototype":true,
+         "transform":{
+            "scale":[
+               2,
+               2
+            ]
+         },
+         "components":[
+            {
+               "type":"SpriteComponent",
+               "textureName":"tilemaps/tileset2_32x32.png",
+               "rect":[416,128,32,32]
+            },
+            {
+               "type":"RBPhysicsComponent",
+               "data.isDynamic":false,
+               "data.density":1,
+               "data.size":[
+                  64,
+                  64
+               ]
+            }
+         ]
+      },
+      {
+         "type":"Actor",
+         "name":"tile02",
+         "tag":"Ground",
+         "prototype":true,
+         "transform":{
+            "scale":[
+               2,
+               2
+            ]
+         },
+         "components":[
+            {
+               "type":"SpriteComponent",
+               "textureName":"tilemaps/tileset2_32x32.png",
+               "rect":[384,160,32,32]
+            },
+            {
+               "type":"RBPhysicsComponent",
+               "data.isDynamic":false,
+               "data.density":1,
+               "data.size":[
+                  64,
+                  64
                ]
             }
          ]

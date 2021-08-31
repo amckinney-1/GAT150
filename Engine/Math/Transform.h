@@ -8,11 +8,11 @@ namespace nEngine
 	{
 		Vector2 position;
 		float rotation{ 0 };
-		float scale{ 1 };
+		Vector2 scale{ 1 };
 
 		Vector2 localPosition;
 		float localRotation{ 0 };
-		float localScale{ 1 };
+		Vector2 localScale{ 1 };
 
 		Matrix33 matrix;
 

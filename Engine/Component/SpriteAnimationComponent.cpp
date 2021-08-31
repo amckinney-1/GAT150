@@ -22,7 +22,7 @@ namespace nEngine
 		Vector2 frameCount{ numFramesX, numFramesY };
 		Vector2 frameSize = size / frameCount;
 
-		rect.x = static_cast<int>((frame % numFramesY) * frameSize.x);
+		rect.x = static_cast<int>((frame % numFramesX) * frameSize.x);
 		rect.y = static_cast<int>((frame / numFramesX) * frameSize.y);
 		rect.w = static_cast<int>(frameSize.x);
 		rect.h = static_cast<int>(frameSize.y);

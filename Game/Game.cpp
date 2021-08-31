@@ -30,9 +30,17 @@ void Game::Initialize()
 	rapidjson::Document document;
 	bool success = nEngine::json::Load("scene.txt", document);
 	assert(success);
+
 	scene->Read(document);
 
-	for (int i = 0; i < 100; i++)
+	nEngine::Tilemap tilemap;
+	tilemap.scene = scene.get();
+	success = nEngine::json::Load("map.txt", document);
+	assert(success);
+	tilemap.Read(document);
+	tilemap.Create();
+
+	for (int i = 0; i < 10; i++)
 	{
 		auto actor = nEngine::ObjectFactory::Instance().Create<nEngine::Actor>("Coin");
 		actor->transform.position = nEngine::Vector2{ nEngine::RandomRange(0, 800), nEngine::RandomRange(300, 450) };
