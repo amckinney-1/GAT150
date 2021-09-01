@@ -4,21 +4,23 @@
          "type":"Actor",
          "name":"Player",
          "tag":"Player",
+         "prototype":true,
          "transform":{
             "position":[
                400,
                300
             ],
             "scale":[
-               12,
-               12
+               2,
+               2
             ],
             "rotation":0
          },
          "components":[
             {
                "type":"PlayerComponent",
-               "speed":10
+               "speed":200,
+               "jump":4000
             },
             {
                "type":"SpriteAnimationComponent",
@@ -53,7 +55,7 @@
             {
                "type":"RBPhysicsComponent",
                "data.isDynamic":true,
-               "data.density":1,
+               "data.density":10,
                "data.lockAngle":true,
                "data.restitution":0.1,
                "data.gravityScale":1,
@@ -110,6 +112,7 @@
       },
       {
          "type":"Actor",
+         "name":"background",
          "tag":"Ground",
          "transform":{
             "position":[
@@ -125,6 +128,7 @@
             {
                "type":"RBPhysicsComponent",
                "data.isDynamic":false,
+               "data.isSensor":true,
                "data.density":1,
                "data.size":[
                   800,
@@ -140,8 +144,8 @@
          "prototype":true,
          "transform":{
             "scale":[
-               2,
-               2
+               1.5,
+               1.5
             ]
          },
          "components":[
@@ -155,8 +159,8 @@
                "data.isDynamic":false,
                "data.density":1,
                "data.size":[
-                  64,
-                  64
+                  48,
+                  48
                ]
             }
          ]
@@ -168,8 +172,8 @@
          "prototype":true,
          "transform":{
             "scale":[
-               2,
-               2
+               1.5,
+               1.5
             ]
          },
          "components":[
@@ -183,32 +187,183 @@
                "data.isDynamic":false,
                "data.density":1,
                "data.size":[
-                  64,
-                  64
+                  48,
+                  48
                ]
             }
          ]
       },
       {
          "type":"Actor",
-         "name":"Score",
+         "name":"tile03",
+         "tag":"Ground",
+         "prototype":true,
          "transform":{
-            "position":[
-               60,
-               20
+            "scale":[
+               1.5,
+               1.5
             ]
          },
          "components":[
             {
-               "type":"TextComponent",
-               "fontName":"fonts/ALGER.TTF",
-               "fontSize":16,
-               "color":[
-                  1,
-                  1,
-                  1
-               ],
-               "text":"Hello World!"
+               "type":"SpriteComponent",
+               "textureName":"tilemaps/tileset2_32x32.png",
+               "rect":[32,0,32,32]
+            },
+            {
+               "type":"RBPhysicsComponent",
+               "data.isDynamic":false,
+               "data.density":1,
+               "data.friction":0.9,
+               "data.size":[
+                  48,
+                  48
+               ]
+            }
+         ]
+      },
+      {
+         "type":"Actor",
+         "name":"tile04",
+         "tag":"Ground",
+         "prototype":true,
+         "transform":{
+            "scale":[
+               1.5,
+               1.5
+            ]
+         },
+         "components":[
+            {
+               "type":"SpriteComponent",
+               "textureName":"tilemaps/tileset2_32x32.png",
+               "rect":[352,384,32,32]
+            },
+            {
+               "type":"RBPhysicsComponent",
+               "data.isDynamic":false,
+               "data.isSensor":true,
+               "data.friction":0.25,
+               "data.density":1,
+               "data.size":[
+                  48,
+                  48
+               ]
+            }
+         ]
+      },
+      {
+         "type":"Actor",
+         "name":"tile05",
+         "tag":"Ground",
+         "prototype":true,
+         "transform":{
+            "scale":[
+               1.5,
+               1.5
+            ]
+         },
+         "components":[
+            {
+               "type":"SpriteComponent",
+               "textureName":"tilemaps/tileset2_32x32.png",
+               "rect":[448,224,32,32]
+            },
+            {
+               "type":"RBPhysicsComponent",
+               "data.isDynamic":true,
+               "data.density":1,
+               "data.size":[
+                  48,
+                  48
+               ]
+            }
+         ]
+      },
+      {
+         "type":"Actor",
+         "name":"tile06",
+         "tag":"Ground",
+         "prototype":true,
+         "transform":{
+            "scale":[
+               1.5,
+               1.5
+            ]
+         },
+         "components":[
+            {
+               "type":"SpriteComponent",
+               "textureName":"tilemaps/tileset2_32x32.png",
+               "rect":[64,448,32,32]
+            },
+            {
+               "type":"RBPhysicsComponent",
+               "data.isDynamic":false,
+               "data.friction":0.1,
+               "data.density":1,
+               "data.size":[
+                  48,
+                  48
+               ]
+            }
+         ]
+      },
+      {
+         "type":"Actor",
+         "name":"tile07",
+         "tag":"Ground",
+         "prototype":true,
+         "transform":{
+            "scale":[
+               1.5,
+               1.5
+            ]
+         },
+         "components":[
+            {
+               "type":"SpriteComponent",
+               "textureName":"tilemaps/tileset2_32x32.png",
+               "rect":[288,192,32,32]
+            },
+            {
+               "type":"RBPhysicsComponent",
+               "data.isDynamic":false,
+               "data.restitution":0.95,
+               "data.density":1,
+               "data.size":[
+                  48,
+                  48
+               ]
+            }
+         ]
+      },
+      {
+         "type":"Actor",
+         "name":"tile08",
+         "tag":"Ground",
+         "prototype":true,
+         "transform":{
+            "scale":[
+               1.5,
+               1.5
+            ]
+         },
+         "components":[
+            {
+               "type":"SpriteComponent",
+               "textureName":"tilemaps/tileset2_32x32.png",
+               "rect":[416,0,32,32]
+            },
+            {
+               "type":"RBPhysicsComponent",
+               "data.isDynamic":false,
+               "data.restitution":0,
+               "data.density":1,
+               "data.size":[
+                  48,
+                  48
+               ]
             }
          ]
       },
@@ -233,8 +388,8 @@
             },
             {
                "type":"RBPhysicsComponent",
-               "data.isDynamic":false,
-               "data.isSensor":true,
+               "data.isDynamic":true,
+               "data.isSensor":false,
                "data.density":1,
                "data.size":[
                   32,
