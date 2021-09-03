@@ -30,7 +30,7 @@ namespace nEngine
 
 	void SpriteAnimationComponent::Draw(Renderer* renderer)
 	{
-		renderer->Draw(texture, rect, owner->transform);
+		renderer->Draw(texture, rect, owner->transform, flip);
 	}
 
 	void SpriteAnimationComponent::StartSequence(const std::string& name)
@@ -44,6 +44,7 @@ namespace nEngine
 			startFrame = sequence.startFrame;
 			endFrame = sequence.endFrame;
 			fps = sequence.fps;
+			flip = sequence.flip;
 
 			frame = startFrame;
 		}
@@ -78,6 +79,7 @@ namespace nEngine
 				JSON_READ(sequenceValue, sequence.fps);
 				JSON_READ(sequenceValue, sequence.startFrame);
 				JSON_READ(sequenceValue, sequence.endFrame);
+				JSON_READ(sequenceValue, sequence.flip);
 
 				sequences[name] = sequence;
 			}

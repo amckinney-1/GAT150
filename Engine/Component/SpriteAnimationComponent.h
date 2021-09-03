@@ -13,6 +13,7 @@ namespace nEngine
 			int fps{ 0 };
 			int startFrame{ 0 };
 			int endFrame{ 0 };
+			bool flip{ false };
 		};
 
 	public:

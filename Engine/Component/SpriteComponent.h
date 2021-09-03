@@ -20,6 +20,7 @@ namespace nEngine
 	public:
 		std::shared_ptr<Texture> texture;
 		SDL_Rect rect;
+		bool flip{ false };
 
 	};
 }

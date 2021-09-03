@@ -46,6 +46,7 @@ private:
 	eState state{ eState::Reset };
 	int score{ 0 };
 	float spawnTimer{0};
+	float enemyTimer{0};
 	float stateTimer{0};
 	
 };

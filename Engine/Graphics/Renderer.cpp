@@ -52,7 +52,7 @@ namespace nEngine
 		SDL_RenderPresent(renderer);
 	}
 
-	void Renderer::Draw(std::shared_ptr<Texture> texture, const Vector2 position, float angle, const Vector2 scale)
+	void Renderer::Draw(std::shared_ptr<Texture> texture, const Vector2 position, float angle, const Vector2 scale, bool flip)
 	{
 		Vector2 size = texture->GetSize();
 		size *= scale;
@@ -60,10 +60,11 @@ namespace nEngine
 
 		SDL_Rect dest{ (int)newPosition.x, (int)newPosition.y, (int)size.x, (int)size.y }; 
 
-		SDL_RenderCopyEx(renderer, texture->texture, nullptr, &dest, RadToDeg(angle), nullptr, SDL_FLIP_NONE);
+		if (flip) SDL_RenderCopyEx(renderer, texture->texture, nullptr, &dest, RadToDeg(angle), nullptr, SDL_FLIP_HORIZONTAL);
+		else SDL_RenderCopyEx(renderer, texture->texture, nullptr, &dest, RadToDeg(angle), nullptr, SDL_FLIP_NONE);
 	}
 
-	void Renderer::Draw(std::shared_ptr<Texture> texture, const Transform& transform)
+	void Renderer::Draw(std::shared_ptr<Texture> texture, const Transform& transform, bool flip)
 	{
 		Vector2 size = texture->GetSize();
 		size *= transform.scale;
@@ -71,18 +72,20 @@ namespace nEngine
 
 		SDL_Rect dest{ (int)newPosition.x, (int)transform.position.y, (int)size.x, (int)size.y };
 
-		SDL_RenderCopyEx(renderer, texture->texture, nullptr, &dest, RadToDeg(transform.rotation), nullptr, SDL_FLIP_NONE);
+		if (flip) SDL_RenderCopyEx(renderer, texture->texture, nullptr, &dest, RadToDeg(transform.rotation), nullptr, SDL_FLIP_HORIZONTAL);
+		else SDL_RenderCopyEx(renderer, texture->texture, nullptr, &dest, RadToDeg(transform.rotation), nullptr, SDL_FLIP_NONE);
 	}
 
-	void Renderer::Draw(std::shared_ptr<Texture> texture, SDL_Rect source, const Transform& transform)
+	void Renderer::Draw(std::shared_ptr<Texture> texture, SDL_Rect source, const Transform& transform, bool flip)
 	{
 		Vector2 size = Vector2{ source.w, source.h };
 		size *= transform.scale;
 		Vector2 newPosition = transform.position - (size * 0.5f);
 
-		SDL_Rect dest{ (int)newPosition.x, (int)transform.position.y, (int)size.x, (int)size.y };
+		SDL_Rect dest{ (int)newPosition.x, (int)newPosition.y, (int)size.x, (int)size.y };
 
-		SDL_RenderCopyEx(renderer, texture->texture, &source, &dest, RadToDeg(transform.rotation), nullptr, SDL_FLIP_NONE);
+		if (flip) SDL_RenderCopyEx(renderer, texture->texture, &source, &dest, RadToDeg(transform.rotation), nullptr, SDL_FLIP_HORIZONTAL);
+		else SDL_RenderCopyEx(renderer, texture->texture, &source, &dest, RadToDeg(transform.rotation), nullptr, SDL_FLIP_NONE);
 	}
 
 }

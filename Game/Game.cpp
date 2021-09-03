@@ -5,8 +5,8 @@
 
 void Game::Initialize()
 {
-	screen.x = 1600;
-	screen.y = 1000;
+	screen.x = 1280;
+	screen.y = 766;
 
 	// init
 	engine = std::make_unique<nEngine::Engine>();
@@ -18,10 +18,8 @@ void Game::Initialize()
 	REGISTER_CLASS(EnemyComponent);
 	REGISTER_CLASS(PickupComponent);
 
-
 	scene = std::make_unique<nEngine::Scene>();
 	scene->engine = engine.get();
-
 
 	// filepath
 	nEngine::SeedRandom(static_cast<unsigned int>(time(nullptr)));
@@ -85,13 +83,16 @@ void Game::Draw()
 	
 	scene->Draw(engine->Get<nEngine::Renderer>());
 	engine->Draw(engine->Get<nEngine::Renderer>());
-
+	
 	engine->Get<nEngine::Renderer>()->EndFrame();
 }
 
 void Game::Reset()
 {
 	scene->RemoveAllActors();
+
+	engine->Get<nEngine::AudioSystem>()->AddAudio("music", "Audio/bensoundExtremeaction.mp3");
+	engine->Get<nEngine::AudioSystem>()->PlayAudio("music", 0.9, 1, true);
 
 	rapidjson::Document document;
 	bool success = nEngine::json::Load("title.txt", document);
@@ -103,10 +104,16 @@ void Game::Reset()
 
 void Game::Title()
 {
+	auto score = scene->FindActor("Score");
+	score->active = false;
+
 	if (engine->Get<nEngine::InputSystem>()->GetKeyState(SDL_SCANCODE_SPACE) == nEngine::InputSystem::eKeyState::Pressed)
 	{
 		auto title = scene->FindActor("Title");
 		title->active = false;
+
+		auto score = scene->FindActor("Score");
+		score->active = true;
 
 		state = eState::StartGame;
 	}
@@ -115,13 +122,13 @@ void Game::Title()
 void Game::StartGame()
 {
 	rapidjson::Document document;
-	bool success = nEngine::json::Load("scene.txt", document);
+	bool success = nEngine::json::Load("level.txt", document);
 	assert(success);
 	scene->Read(document);
 
 	nEngine::Tilemap tilemap;
 	tilemap.scene = scene.get();
-	success = nEngine::json::Load("map.txt", document);
+	success = nEngine::json::Load("map2.txt", document);
 	assert(success);
 	tilemap.Read(document);
 	tilemap.Create();
@@ -149,11 +156,21 @@ void Game::Level()
 	spawnTimer -= engine->time.deltaTime;
 	if (spawnTimer <= 0)
 	{
-		spawnTimer = nEngine::RandomRange(2, 4);
+		spawnTimer = nEngine::RandomRange(1, 3);
 
 		auto coin = nEngine::ObjectFactory::Instance().Create<nEngine::Actor>("Coin");
-		coin->transform.position = nEngine::Vector2{ nEngine::RandomRangeInt(100, 700), 150 };
+		coin->transform.position = nEngine::Vector2{ nEngine::RandomRangeInt(100, screen.x - 100), 50 };
 		scene->AddActor(std::move(coin));
+	}
+
+	enemyTimer -= engine->time.deltaTime;
+	if (enemyTimer <= 0)
+	{
+		enemyTimer = 30;
+
+		auto bat = nEngine::ObjectFactory::Instance().Create<nEngine::Actor>("Bat");
+		bat->transform.position = nEngine::Vector2{ nEngine::RandomRangeInt(100, screen.x - 100), screen.y - 50 };
+		scene->AddActor(std::move(bat));
 	}
 }
 

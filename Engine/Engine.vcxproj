@@ -243,7 +243,9 @@
     <ClInclude Include="Resource\ResourceSystem.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="..\Build\Resources\level.txt" />
     <Text Include="..\Build\Resources\map.txt" />
+    <Text Include="..\Build\Resources\map2.txt" />
     <Text Include="..\Build\Resources\scene.txt" />
     <Text Include="..\Build\Resources\title.txt" />
   </ItemGroup>

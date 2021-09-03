@@ -33,7 +33,11 @@ void PlayerComponent::Update()
 	SpriteAnimationComponent* spriteAnimationComponent = owner->GetComponent<SpriteAnimationComponent>();
 	assert(spriteAnimationComponent);
 
-	if (physicsComponent->velocity.x > 0) spriteAnimationComponent->StartSequence("walk_right");
+	if (physicsComponent->velocity.x >= 0 && physicsComponent->velocity.y < 0) spriteAnimationComponent->StartSequence("jump_right");
+	else if (physicsComponent->velocity.x < 0 && physicsComponent->velocity.y < 0) spriteAnimationComponent->StartSequence("jump_left");
+	else if (physicsComponent->velocity.x >= 0 && physicsComponent->velocity.y > 0) spriteAnimationComponent->StartSequence("fall_right");
+	else if (physicsComponent->velocity.x < 0 && physicsComponent->velocity.y > 0) spriteAnimationComponent->StartSequence("fall_left");
+	else if (physicsComponent->velocity.x > 0) spriteAnimationComponent->StartSequence("walk_right");
 	else if (physicsComponent->velocity.x < 0) spriteAnimationComponent->StartSequence("walk_left");
 	else spriteAnimationComponent->StartSequence("idle");
 }
@@ -51,6 +55,12 @@ void PlayerComponent::OnCollisionEnter(const Event& event)
 	if (istring_compare(actor->tag, "enemy"))
 	{
 		owner->scene->engine->Get<AudioSystem>()->PlayAudio("hurt");
+
+		Event event;
+		event.name = "add_score";
+		event.data = -5;
+
+		owner->scene->engine->Get<EventSystem>()->Notify(event);
 	}
 
 	if (istring_compare(actor->tag, "pickup"))
